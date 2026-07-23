@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Desafio Fundatec - Concursos</title>
+    <style>
+        :root {
+            --primary: #1e3a8a;     /* Azul escuro institucional */
+            --secondary: #3b82f6;   /* Azul claro para hover */
+            --success: #16a34a;     /* Verde para acertos */
+            --error: #dc2626;       /* Vermelho para erros */
+            --bg: #f1f5f9;          /* Fundo da página */
+            --surface: #ffffff;     /* Fundo do card */
+            --text-main: #1e293b;
+            --text-muted: #64748b;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text-main);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 16px;
+        }
+
+        /* Container principal - Responsivo */
+        #game-container {
+            background: var(--surface);
+            width: 100%;
+            max-width: 600px;
+            border-radius: 16px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+            padding: 24px;
+        }
+
+        /* Cabeçalho do Quiz */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+            padding-bottom: 16px;
+            border-bottom: 2px solid #e2e8f0;
+        }
+
+        .score-board {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--primary);
+        }
+
+        .subject-tag {
+            background-color: var(--primary);
+            color: white;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        /* Área da Questão */
+        .question-text {
+            font-size: 1.15rem;
+            line-height: 1.6;
+            margin-bottom: 24px;
+            font-weight: 500;
+        }
+
+        /* Botões de Alternativas */
+        .options-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .option-btn {
+            background: var(--surface);
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 16px;
+            text-align: left;
+            font-size: 1rem;
+            color: var(--text-main);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+        }
+
+        .option-btn span.letter {
+            font-weight: bold;
+            margin-right: 12px;
+            color: var(--primary);
+        }
+
+        .option-btn:hover:not(:disabled) {
+            border-color: var(--secondary);
+            background: #eff6ff;
+        }
+
+        /* Estados de Acerto e Erro */
+        .option-btn.correct {
+            background-color: var(--success);
+            border-color: var(--success);
+            color: white;
+        }
+        .option-btn.correct span.letter { color: white; }
+
+        .option-btn.wrong {
+            background-color: var(--error);
+            border-color: var(--error);
+            color: white;
+        }
+        .option-btn.wrong span.letter { color: white; }
+
+        .option-btn:disabled {
+            cursor: default;
+        }
+
+        /* Feedback e Botão Avançar */
+        #feedback-container {
+            margin-top: 20px;
+            padding: 16px;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            line-height: 1.5;
+            display: none;
+        }
+
+        #next-btn {
+            margin-top: 20px;
+            width: 100%;
+            padding: 16px;
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.2s;
+            display: none;
+        }
+
+        #next-btn:hover {
+            background-color: #152c6b;
+        }
+
+        /* Tela Final */
+        #end-screen {
+            text-align: center;
+            display: none;
+        }
+        #end-screen h2 { margin-bottom: 16px; color: var(--primary); }
+        #end-screen p { margin-bottom: 24px; font-size: 1.2rem; }
+    </style>
+</head>
+<body>
+
+    <div id="game-container">
+        <!-- Tela do Quiz -->
+        <div id="quiz-screen">
+            <header>
+                <div class="subject-tag" id="subject">Matéria</div>
+                <div class="score-board">Acertos: <span id="score">0</span>/<span id="total-questions">0</span></div>
+            </header>
+
+            <div class="question-text" id="question">
+                Carregando questão...
+            </div>
+
+            <div class="options-grid" id="options">
+                <!-- Botões gerados via JS -->
+            </div>
+
+            <div id="feedback-container"></div>
+            
+            <button id="next-btn" onclick="proximaQuestao()">Próxima Questão ➔</button>
+        </div>
+
+        <!-- Tela Final -->
+        <div id="end-screen">
+            <h2>Simulado Concluído!</h2>
+            <p>Você acertou <strong id="final-score">0</strong> de <strong id="final-total">0</strong> questões.</p>
+            <button id="next-btn" style="display: block;" onclick="reiniciarJogo()">Jogar Novamente</button>
+        </div>
+    </div>
+
+    <script>
+        // Banco de Questões (Estilo Fundatec)
+        const bancoDeQuestoes = [
+            {
+                disciplina: "Língua Portuguesa",
+                enunciado: "Na frase 'Os candidatos terminaram a prova exaustos', classifique o tipo de predicado:",
+                alternativas: [
+                    "Predicado Verbal",
+                    "Predicado Nominal",
+                    "Predicado Verbo-Nominal",
+                    "Predicado Inexistente",
+                    "Predicado Simples"
+                ],
+                correta: 2, // Índice da alternativa C (0 a 4)
+                explicacao: "Correto! É um predicado verbo-nominal porque possui dois núcleos: um verbo de ação ('terminaram') e um predicativo do sujeito que indica estado ('exaustos')."
+            },
+            {
+                disciplina: "Raciocínio Lógico",
+                enunciado: "Qual é a proposição logicamente equivalente a: 'Se estudo muito, então sou aprovado no concurso'?",
+                alternativas: [
+                    "Se sou aprovado no concurso, então estudo muito.",
+                    "Se não estudo muito, então não sou aprovado no concurso.",
+                    "Estudo muito e sou aprovado no concurso.",
+                    "Se não sou aprovado no concurso, então não estudo muito.",
+                    "Não estudo muito ou não sou aprovado no concurso."
+                ],
+                correta: 3,
+                explicacao: "Correto! Esta é a regra da Contrapositiva (Inverte e Nega). 'Se P então Q' é equivalente a 'Se não Q então não P'."
+            },
+            {
+                disciplina: "Direito Constitucional",
+                enunciado: "Conforme o Art. 1º da Constituição Federal, assinale a alternativa que apresenta um dos FUNDAMENTOS da República Federativa do Brasil:",
+                alternativas: [
+                    "Construir uma sociedade livre, justa e solidária.",
+                    "A dignidade da pessoa humana.",
+                    "Erradicar a pobreza e a marginalização.",
+                    "Garantir o desenvolvimento nacional.",
+                    "A concessão de asilo político."
+                ],
+                correta: 1,
+                explicacao: "Correto! A dignidade da pessoa humana é um fundamento (mneumônico SO-CI-DI-VA-PLU). As alternativas A, C e D são objetivos fundamentais (Art. 3º), e a E é princípio nas relações internacionais (Art. 4º)."
+            },
+            {
+                disciplina: "Língua Portuguesa",
+                enunciado: "Assinale a alternativa em que o verbo em destaque é transitivo direto e indireto (bitransitivo):",
+                alternativas: [
+                    "A chuva CAIU pesada durante a noite.",
+                    "Os alunos PRECISAM de mais tempo.",
+                    "O diretor ENTREGOU o prêmio ao vencedor.",
+                    "O sol BRILHA para todos.",
+                    "A cidade PARECE tranquila hoje."
+                ],
+                correta: 2,
+                explicacao: "Correto! 'Entregou' exige dois complementos: O quê? (o prêmio - objeto direto) A quem? (ao vencedor - objeto indireto)."
+            }
+        ];
+
+        // Variáveis de Estado
+        let questaoAtual = 0;
+        let pontuacao = 0;
+        const letras = ['A', 'B', 'C', 'D', 'E'];
+
+        // Elementos do DOM
+        const elSubject = document.getElementById('subject');
+        const elScore = document.getElementById('score');
+        const elTotal = document.getElementById('total-questions');
+        const elQuestion = document.getElementById('question');
+        const elOptions = document.getElementById('options');
+        const elNextBtn = document.getElementById('next-btn');
+        const elFeedback = document.getElementById('feedback-container');
+
+        // Inicializa o jogo
+        function iniciarJogo() {
+            elTotal.textContent = bancoDeQuestoes.length;
+            carregarQuestao();
+        }
+
+        // Carrega a questão atual na tela
+        function carregarQuestao() {
+            const q = bancoDeQuestoes[questaoAtual];
+            
+            elSubject.textContent = q.disciplina;
+            elQuestion.textContent = q.enunciado;
+            
+            // Limpa as opções anteriores e oculta elementos
+            elOptions.innerHTML = '';
+            elNextBtn.style.display = 'none';
+            elFeedback.style.display = 'none';
+
+            // Gera os botões de alternativa
+            q.alternativas.forEach((texto, index) => {
+                const btn = document.createElement('button');
+                btn.className = 'option-btn';
+                btn.innerHTML = `<span class="letter">${letras[index]})</span> ${texto}`;
+                btn.onclick = () => verificarResposta(index, btn);
+                elOptions.appendChild(btn);
+            });
+        }
+
+        // Verifica se o clique está correto
+        function verificarResposta(indiceSelecionado, botaoClicado) {
+            const q = bancoDeQuestoes[questaoAtual];
+            const botoes = document.querySelectorAll('.option-btn');
+
+            // Desabilita todos os botões para impedir duplo clique
+            botoes.forEach(btn => btn.disabled = true);
+
+            // Verifica se acertou ou errou
+            if (indiceSelecionado === q.correta) {
+                botaoClicado.classList.add('correct');
+                pontuacao++;
+                elScore.textContent = pontuacao;
+                elFeedback.style.backgroundColor = '#dcfce7'; // Fundo verde claro
+                elFeedback.style.color = '#166534';
+                elFeedback.innerHTML = `<strong>Acertou!</strong> ${q.explicacao}`;
+            } else {
+                botaoClicado.classList.add('wrong');
+                botoes[q.correta].classList.add('correct'); // Mostra a certa
+                elFeedback.style.backgroundColor = '#fee2e2'; // Fundo vermelho claro
+                elFeedback.style.color = '#991b1b';
+                elFeedback.innerHTML = `<strong>Errou.</strong> A resposta correta era a alternativa ${letras[q.correta]}.<br><br>${q.explicacao}`;
+            }
+
+            // Exibe a explicação e o botão para avançar
+            elFeedback.style.display = 'block';
+            elNextBtn.style.display = 'block';
+        }
+
+        // Vai para a próxima pergunta ou encerra o jogo
+        function proximaQuestao() {
+            questaoAtual++;
+            if (questaoAtual < bancoDeQuestoes.length) {
+                carregarQuestao();
+            } else {
+                finalizarJogo();
+            }
+        }
+
+        // Tela de conclusão
+        function finalizarJogo() {
+            document.getElementById('quiz-screen').style.display = 'none';
+            document.getElementById('end-screen').style.display = 'block';
+            document.getElementById('final-score').textContent = pontuacao;
+            document.getElementById('final-total').textContent = bancoDeQuestoes.length;
+        }
+
+        // Reinicia os contadores
+        function reiniciarJogo() {
+            questaoAtual = 0;
+            pontuacao = 0;
+            elScore.textContent = 0;
+            document.getElementById('quiz-screen').style.display = 'block';
+            document.getElementById('end-screen').style.display = 'none';
+            iniciarJogo();
+        }
+
+        // Start
+        iniciarJogo();
+    </script>
+</body>
+</html>
