@@ -45,11 +45,11 @@
         }
 
         /* --- Telas do Sistema --- */
-        #disciplina-screen, #assunto-screen, #quiz-screen, #end-screen {
+        #disciplina-screen, #assunto-screen, #quiz-screen, #end-screen, #admin-screen {
             display: none;
         }
         
-        #disciplina-screen { display: block; } /* Tela inicial */
+        #disciplina-screen { display: block; }
 
         .screen-header {
             text-align: center;
@@ -80,6 +80,41 @@
         .menu-btn:hover {
             background-color: var(--primary);
             color: white;
+        }
+
+        .btn-add {
+            border-color: var(--success);
+            color: var(--success);
+        }
+        .btn-add:hover {
+            background-color: var(--success);
+            color: white;
+        }
+
+        /* --- Formulário de Cadastro --- */
+        .form-group {
+            margin-bottom: 16px;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 6px;
+            font-size: 0.95rem;
+        }
+
+        .form-group input, .form-group textarea, .form-group select {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            font-size: 1rem;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        .form-group input:focus, .form-group textarea:focus, .form-group select:focus {
+            border-color: var(--secondary);
         }
 
         /* --- Estilos do Quiz --- */
@@ -199,7 +234,6 @@
         .btn-primary:hover { background-color: #152c6b; }
         #next-btn { display: none; }
 
-        /* --- Tela Final --- */
         #end-screen { text-align: center; }
         #end-screen h2 { margin-bottom: 16px; color: var(--primary); }
         #end-screen p { margin-bottom: 24px; font-size: 1.2rem; }
@@ -209,15 +243,66 @@
 
     <div id="game-container">
         
-        <!-- Tela 1: Escolha de Disciplina -->
+        <!-- Tela 1: Escolha de Disciplina / Menu Principal -->
         <div id="disciplina-screen">
             <div class="screen-header">
                 <h2>Simulado Fundatec</h2>
-                <p>Escolha a disciplina que deseja estudar:</p>
+                <p>Escolha a disciplina ou adicione novas questões:</p>
             </div>
             <div class="menu-options" id="lista-disciplinas">
                 <!-- Gerado via JS -->
             </div>
+            <div class="menu-options" style="margin-top: 12px;">
+                <button class="menu-btn btn-add" onclick="mostrarTelaAdmin()">➕ Cadastrar Nova Questão</button>
+            </div>
+        </div>
+
+        <!-- Tela de Cadastro de Questões (Admin) -->
+        <div id="admin-screen">
+            <div class="top-bar">
+                <button class="btn-voltar" onclick="mostrarDisciplinas()">← Voltar ao Menu</button>
+            </div>
+            <div class="screen-header">
+                <h2>Cadastrar Questão</h2>
+                <p>Insira os dados da nova questão da Fundatec</p>
+            </div>
+            <form id="form-questao" onsubmit="salvarNovaQuestao(event)">
+                <div class="form-group">
+                    <label>Disciplina:</label>
+                    <input type="text" id="adm-disciplina" placeholder="Ex: Direito, Língua Portuguesa, Informática" required>
+                </div>
+                <div class="form-group">
+                    <label>Assunto (do Edital):</label>
+                    <input type="text" id="adm-assunto" placeholder="Ex: Lei Maria da Penha, Crase, Excel" required>
+                </div>
+                <div class="form-group">
+                    <label>Enunciado da Questão:</label>
+                    <textarea id="adm-enunciado" rows="4" placeholder="Digite o texto da pergunta..." required></textarea>
+                </div>
+                <div class="form-group"><label>Alternativa A:</label><input type="text" id="adm-alt0" required></div>
+                <div class="form-group"><label>Alternativa B:</label><input type="text" id="adm-alt1" required></div>
+                <div class="form-group"><label>Alternativa C:</label><input type="text" id="adm-alt2" required></div>
+                <div class="form-group"><label>Alternativa D:</label><input type="text" id="adm-alt3" required></div>
+                <div class="form-group"><label>Alternativa E:</label><input type="text" id="adm-alt4" required></div>
+                
+                <div class="form-group">
+                    <label>Alternativa Correta:</label>
+                    <select id="adm-correta">
+                        <option value="0">Alternativa A</option>
+                        <option value="1">Alternativa B</option>
+                        <option value="2">Alternativa C</option>
+                        <option value="3">Alternativa D</option>
+                        <option value="4">Alternativa E</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Explicação / Gabarito Comentado:</label>
+                    <textarea id="adm-explicacao" rows="3" placeholder="Por que esta é a alternativa correta?"></textarea>
+                </div>
+
+                <button type="submit" class="btn-primary">Salvar Questão</button>
+            </form>
         </div>
 
         <!-- Tela 2: Escolha de Assunto -->
@@ -229,9 +314,7 @@
                 <h2 id="titulo-disciplina-escolhida">Disciplina</h2>
                 <p>Escolha o tópico do edital:</p>
             </div>
-            <div class="menu-options" id="lista-assuntos">
-                <!-- Gerado via JS -->
-            </div>
+            <div class="menu-options" id="lista-assuntos"></div>
         </div>
 
         <!-- Tela 3: Quiz -->
@@ -260,144 +343,16 @@
     </div>
 
     <script>
-        // Banco de Questões Completo e Seccionado
-        const bancoDeQuestoes = [
-            // LÍNGUA PORTUGUESA
+        // Banco de Questões Base
+        const bancoDeQuestoesBase = [
             {
                 disciplina: "Língua Portuguesa",
                 assunto: "Sintaxe: Tipos de Predicado",
                 enunciado: "Na frase 'Os candidatos terminaram a prova exaustos', classifique o tipo de predicado:",
-                alternativas: [
-                    "Predicado Verbal",
-                    "Predicado Nominal",
-                    "Predicado Verbo-Nominal",
-                    "Predicado Inexistente",
-                    "Predicado Simples"
-                ],
+                alternativas: ["Predicado Verbal", "Predicado Nominal", "Predicado Verbo-Nominal", "Predicado Inexistente", "Predicado Simples"],
                 correta: 2, 
-                explicacao: "Correto! É um predicado verbo-nominal porque possui dois núcleos: um verbo de ação ('terminaram') e um predicativo do sujeito que indica estado ('exaustos')."
+                explicacao: "Correto! É um predicado verbo-nominal porque possui dois núcleos: um verbo de ação ('terminaram') e um predicativo do sujeito ('exaustos')."
             },
-            {
-                disciplina: "Língua Portuguesa",
-                assunto: "Sintaxe: Tipos de Predicado",
-                enunciado: "(Fundatec) Assinale a alternativa que apresenta um predicado verbo-nominal.",
-                alternativas: [
-                    "Os candidatos chegaram atrasados.",
-                    "A tempestade destruiu o telhado da escola.",
-                    "A criança parecia doente após o almoço.",
-                    "Os pássaros voavam velozmente pelo céu.",
-                    "Nós precisamos de muita ajuda hoje."
-                ],
-                correta: 0,
-                explicacao: "Correto! O predicado verbo-nominal possui dois núcleos: um verbo de ação ('chegaram') e um predicativo do sujeito indicando estado ('atrasados')."
-            },
-            {
-                disciplina: "Língua Portuguesa",
-                assunto: "Crase",
-                enunciado: "(Fundatec) Assinale a alternativa que preenche corretamente a lacuna: 'O diretor referiu-se ___ nova funcionária com muito respeito.'",
-                alternativas: ["a", "à", "as", "às", "para"],
-                correta: 1,
-                explicacao: "Correto! O verbo 'referir-se' exige a preposição 'a' e a palavra 'nova' admite o artigo 'a'. A junção forma a crase (à)."
-            },
-            {
-                disciplina: "Língua Portuguesa",
-                assunto: "Concordância Verbal",
-                enunciado: "(Fundatec) Assinale a alternativa correta quanto à concordância verbal:",
-                alternativas: [
-                    "Fazem três anos que não o vejo.",
-                    "Haviam muitas pessoas na sala de espera.",
-                    "Alugam-se apartamentos nesta região.",
-                    "Necessitam-se de funcionários com urgência.",
-                    "Vão fazer cinco anos que me mudei de cidade."
-                ],
-                correta: 2,
-                explicacao: "Correto! Na voz passiva sintética, o verbo concorda com o sujeito (apartamentos são alugados). Os verbos 'fazer' e 'haver' no sentido de tempo ou existir ficam no singular."
-            },
-            {
-                disciplina: "Língua Portuguesa",
-                assunto: "Verbos",
-                enunciado: "(Fundatec) Analise a forma verbal destacada na frase: 'Se ele MANTIVER o ritmo de estudos, será aprovado.' O verbo está conjugado no:",
-                alternativas: [
-                    "Futuro do pretérito do indicativo.",
-                    "Presente do subjuntivo.",
-                    "Futuro do subjuntivo.",
-                    "Pretérito imperfeito do subjuntivo.",
-                    "Infinitivo pessoal."
-                ],
-                correta: 2,
-                explicacao: "Correto! 'Mantiver' é o futuro do subjuntivo do verbo 'manter', indicando uma hipótese futura."
-            },
-            {
-                disciplina: "Língua Portuguesa",
-                assunto: "Acentuação Gráfica",
-                enunciado: "(Fundatec) Assinale a alternativa em que todas as palavras são acentuadas obedecendo à mesma regra gramatical:",
-                alternativas: [
-                    "lâmpada, vítima, pássaro.",
-                    "café, caju, ali.",
-                    "fácil, tórax, cipó.",
-                    "saúde, saída, história.",
-                    "vêm, têm, chapéu."
-                ],
-                correta: 0,
-                explicacao: "Correto! Todas as palavras da alternativa são proparoxítonas, e a regra determina que toda palavra proparoxítona deve ser acentuada."
-            },
-            {
-                disciplina: "Língua Portuguesa",
-                assunto: "Pontuação",
-                enunciado: "(Fundatec) Em relação ao uso da vírgula, assinale a alternativa inteiramente correta:",
-                alternativas: [
-                    "O aluno, estudou muito para a prova de ontem.",
-                    "Os candidatos, que chegaram cedo, conseguiram bons lugares.",
-                    "A banca exigiu, dos candidatos muito esforço.",
-                    "Na tarde de ontem choveu, muito forte.",
-                    "Maria, comprou um carro novo, no mês passado."
-                ],
-                correta: 1,
-                explicacao: "Correto! As vírgulas estão isolando corretamente a oração subordinada adjetiva explicativa ('que chegaram cedo')."
-            },
-            {
-                disciplina: "Língua Portuguesa",
-                assunto: "Morfologia: Funções do 'Que'",
-                enunciado: "(Fundatec) Na frase 'O material QUE comprei é muito útil', a palavra destacada classifica-se morfologicamente como:",
-                alternativas: [
-                    "Conjunção integrante.",
-                    "Pronome relativo.",
-                    "Partícula expletiva.",
-                    "Pronome interrogativo.",
-                    "Conjunção coordenativa explicativa."
-                ],
-                correta: 1,
-                explicacao: "Correto! O 'que' pode ser substituído por 'o qual', exercendo função de pronome relativo."
-            },
-            {
-                disciplina: "Língua Portuguesa",
-                assunto: "Colocação Pronominal",
-                enunciado: "(Fundatec) Assinale a alternativa em que a colocação pronominal desrespeita a norma-padrão da Língua Portuguesa:",
-                alternativas: [
-                    "Nunca me disseram a verdade.",
-                    "Alguém o ajudou com as malas.",
-                    "Entregar-te-ei o documento amanhã.",
-                    "Se me chamarem, eu irei.",
-                    "Me empresta a sua caneta preta?"
-                ],
-                correta: 4,
-                explicacao: "Correto! Não se inicia frase com pronome oblíquo átono na norma culta."
-            },
-            {
-                disciplina: "Língua Portuguesa",
-                assunto: "Ortografia",
-                enunciado: "(Simulado PPRS) Qual das palavras abaixo é escrita corretamente ao preencher a lacuna com a letra “z”?",
-                alternativas: [
-                    "Bele__a.",
-                    "Pe__ado.",
-                    "Coi__a.",
-                    "Ga__olina."
-                ],
-                correta: 0,
-                explicacao: "Correto! A palavra 'Beleza' deriva de adjetivo + sufixo '-eza', escrito com 'Z'."
-            },
-
-            // RACIOCÍNIO LÓGICO
             {
                 disciplina: "Raciocínio Lógico",
                 assunto: "Equivalência Lógica",
@@ -410,172 +365,17 @@
                     "Não estudo muito ou não sou aprovado no concurso."
                 ],
                 correta: 3,
-                explicacao: "Correto! Esta é a regra da Contrapositiva (Inverte e Nega). 'Se P então Q' é equivalente a 'Se não Q então não P'."
-            },
-            {
-                disciplina: "Raciocínio Lógico",
-                assunto: "Negação Lógica",
-                enunciado: "(Fundatec) Considere a proposição lógica: 'Se o candidato estuda, então ele passa na prova'. A negação lógica dessa proposição é:",
-                alternativas: [
-                    "Se o candidato não estuda, então ele não passa na prova.",
-                    "O candidato não estuda ou ele não passa na prova.",
-                    "O candidato estuda e não passa na prova.",
-                    "Se o candidato passa na prova, então ele estuda.",
-                    "O candidato não estuda e passa na prova."
-                ],
-                correta: 2,
-                explicacao: "Correto! Para negar uma condicional, usa-se a regra do 'Mané' (Mantém a primeira E Nega a segunda)."
-            },
-            {
-                disciplina: "Raciocínio Lógico",
-                assunto: "Diagramas Lógicos",
-                enunciado: "(Fundatec) Se todo A é B, e nenhum B é C, é correto afirmar logicamente que:",
-                alternativas: [
-                    "Algum A é C.",
-                    "Nenhum A é C.",
-                    "Todo C é A.",
-                    "Algum C é B.",
-                    "Todo B é A."
-                ],
-                correta: 1,
-                explicacao: "Correto! Se A está totalmente dentro de B, e B e C não se tocam, então é impossível que A toque em C."
-            },
-            {
-                disciplina: "Raciocínio Lógico",
-                assunto: "Tautologia",
-                enunciado: "(Fundatec) Assinale a alternativa que apresenta uma tautologia:",
-                alternativas: [
-                    "Chove ou não chove.",
-                    "Se chove, então faz frio.",
-                    "Chove e faz frio.",
-                    "Não chove e não faz frio.",
-                    "Chove se, e somente se, faz frio."
-                ],
-                correta: 0,
-                explicacao: "Correto! Tautologia é uma proposição sempre verdadeira ('P ou não P')."
-            },
-            {
-                disciplina: "Raciocínio Lógico",
-                assunto: "Conjuntos",
-                enunciado: "(Fundatec) Em uma sala com 40 concurseiros, 25 estudam Português e 20 estudam Raciocínio Lógico. Sabendo que todos estudam pelo menos uma dessas matérias, quantos alunos estudam AMBAS as matérias?",
-                alternativas: ["5", "10", "15", "20", "25"],
-                correta: 0,
-                explicacao: "Correto! 25 + 20 = 45. A intersecção é a ultrapassagem sobre o total real: 45 - 40 = 5 alunos."
-            },
-            {
-                disciplina: "Raciocínio Lógico",
-                assunto: "Análise Combinatória",
-                enunciado: "(Fundatec) De quantas maneiras diferentes podemos organizar 5 pessoas em uma fila indiana?",
-                alternativas: ["25", "50", "120", "60", "100"],
-                correta: 2,
-                explicacao: "Correto! Permutação simples de 5 elementos (5! = 5 x 4 x 3 x 2 x 1 = 120)."
-            },
-            {
-                disciplina: "Raciocínio Lógico",
-                assunto: "Sequências Lógicas",
-                enunciado: "(Fundatec) Qual é o próximo número da sequência lógica: 2, 5, 10, 17, 26, ...?",
-                alternativas: ["35", "37", "39", "32", "41"],
-                correta: 1,
-                explicacao: "Correto! A diferença aumenta em ímpares consecutivos (+3, +5, +7, +9, +11). 26 + 11 = 37."
-            },
-
-            // DIREITO
-            {
-                disciplina: "Direito",
-                assunto: "Direito Constitucional: Fundamentos",
-                enunciado: "Conforme o Art. 1º da CF, assinale a alternativa que apresenta um dos FUNDAMENTOS da República Federativa do Brasil:",
-                alternativas: [
-                    "Construir uma sociedade livre, justa e solidária.",
-                    "A dignidade da pessoa humana.",
-                    "Erradicar a pobreza e a marginalização.",
-                    "Garantir o desenvolvimento nacional.",
-                    "A concessão de asilo político."
-                ],
-                correta: 1,
-                explicacao: "Correto! A dignidade da pessoa humana é um fundamento (SO-CI-DI-VA-PLU)."
-            },
-            {
-                disciplina: "Direito",
-                assunto: "Direito Administrativo: Princípios",
-                enunciado: "(Fundatec) Na Administração Pública, o princípio que exige que o ato seja praticado visando sempre o interesse público, sem favoritismos, é a:",
-                alternativas: ["Legalidade.", "Impessoalidade.", "Moralidade.", "Publicidade.", "Eficiência."],
-                correta: 1,
-                explicacao: "Correto! O princípio da Impessoalidade determina tratamento igualitário."
-            },
-            {
-                disciplina: "Direito",
-                assunto: "Direito Administrativo: Atos Administrativos",
-                enunciado: "(Fundatec) São atributos (ou características) do ato administrativo, EXCETO:",
-                alternativas: [
-                    "Presunção de legitimidade.",
-                    "Imperatividade.",
-                    "Autoexecutoriedade.",
-                    "Tipicidade.",
-                    "Legalidade estrita."
-                ],
-                correta: 4,
-                explicacao: "Correto! A legalidade é um princípio, não um atributo (mnemônico PATI)."
-            },
-            {
-                disciplina: "Direito",
-                assunto: "Direito Penal: Consumação e Arrependimento",
-                enunciado: "(Fundatec) José subtraiu um computador portátil e levou para casa. No dia seguinte, devolveu-o voluntariamente, mas o crime já havia sido registrado. Diante disso, é correto afirmar que:",
-                alternativas: [
-                    "Ocorreu desistência voluntária.",
-                    "Foi consumado o furto.",
-                    "É caso de arrependimento eficaz com redução de metade da pena.",
-                    "Será extinta a punibilidade.",
-                    "Trata-se de tentativa de furto."
-                ],
-                correta: 1,
-                explicacao: "Correto! O furto se consuma com a inversão da posse (teoria da Amotio). A devolução posterior configura arrependimento posterior, reduzindo a pena, mas não afasta a consumação."
-            },
-            {
-                disciplina: "Direito",
-                assunto: "Legislação Especial: Lei de Execução Penal (LEP)",
-                enunciado: "(Fundatec) Sobre o instituto da remição pelo estudo, assinale a alternativa correta segundo a Lei nº 7.210/1984.",
-                alternativas: [
-                    "A remição se dá à razão de 1 dia a cada 12 horas de frequência escolar divididas, no máximo, em 3 dias.",
-                    "A remição se dá à razão de 1 dia a cada 12 horas de frequência escolar divididas, no mínimo, em 3 dias. As atividades podem ser presenciais ou EAD. O tempo será acrescido de 1/3 no caso de conclusão.",
-                    "A remição se dá à razão de 1 dia a cada 12 horas de frequência escolar obrigatoriamente presencial.",
-                    "A remição se dá a cada 24 horas de estudo."
-                ],
-                correta: 1,
-                explicacao: "Correto! Art. 126 da LEP: 12 horas divididas no mínimo em 3 dias, aceita EAD, com acréscimo de 1/3 em caso de conclusão de nível de ensino."
-            },
-
-            // INFORMÁTICA
-            {
-                disciplina: "Informática",
-                assunto: "Windows 10",
-                enunciado: "(Fundatec - SUSEPE/RS) No Microsoft Windows 10, não é permitido o uso de alguns caracteres em nomes de arquivos e pastas. Assinale o nome de arquivo inválido:",
-                alternativas: [
-                    "programa_de_informática.docx",
-                    "praia ou serra?.pdf",
-                    "#cronograma do projeto.xlsx",
-                    "lista-mercado.txt",
-                    "controle(1).exe"
-                ],
-                correta: 1,
-                explicacao: "Correto! O Windows proíbe caracteres como \\ / : * ? \" < > |."
-            },
-            {
-                disciplina: "Informática",
-                assunto: "Navegadores de Internet",
-                enunciado: "(Fundatec - SUSEPE/RS) No navegador Google Chrome, o atalho Ctrl + Shift + N é utilizado para:",
-                alternativas: [
-                    "Abrir nova aba normal.",
-                    "Fechar aba atual.",
-                    "Abrir downloads.",
-                    "Abrir uma janela de navegação anônima.",
-                    "Imprimir página."
-                ],
-                correta: 3,
-                explicacao: "Correto! Ctrl + Shift + N abre a janela anônima."
+                explicacao: "Correto! Esta é a regra da Contrapositiva (Inverte e Nega)."
             }
         ];
 
-        // Variáveis Globais de Estado
+        // Carrega questões salvas no navegador (LocalStorage) e junta com as base
+        let bancoDeQuestoes = [...bancoDeQuestoesBase];
+        const salvas = localStorage.getItem('bancoDeQuestoes_custom');
+        if (salvas) {
+            bancoDeQuestoes.push(...JSON.parse(salvas));
+        }
+
         let disciplinaAtual = '';
         let assuntoAtual = '';
         let questoesFiltradas = [];
@@ -583,13 +383,12 @@
         let pontuacao = 0;
         const letras = ['A', 'B', 'C', 'D', 'E'];
 
-        // Telas
         const elDisciplinaScreen = document.getElementById('disciplina-screen');
         const elAssuntoScreen = document.getElementById('assunto-screen');
         const elQuizScreen = document.getElementById('quiz-screen');
         const elEndScreen = document.getElementById('end-screen');
+        const elAdminScreen = document.getElementById('admin-screen');
 
-        // Inicialização: Gerar botões de Disciplinas dinamicamente
         function carregarDisciplinas() {
             const disciplinasUnicas = [...new Set(bancoDeQuestoes.map(q => q.disciplina))];
             const divLista = document.getElementById('lista-disciplinas');
@@ -604,24 +403,59 @@
             });
         }
 
-        // Navegação de Telas
         function esconderTudo() {
             elDisciplinaScreen.style.display = 'none';
             elAssuntoScreen.style.display = 'none';
             elQuizScreen.style.display = 'none';
             elEndScreen.style.display = 'none';
+            elAdminScreen.style.display = 'none';
         }
 
         function mostrarDisciplinas() {
             esconderTudo();
             elDisciplinaScreen.style.display = 'block';
+            carregarDisciplinas();
+        }
+
+        function mostrarTelaAdmin() {
+            esconderTudo();
+            elAdminScreen.style.display = 'block';
+        }
+
+        function salvarNovaQuestao(event) {
+            event.preventDefault();
+            const novaQ = {
+                disciplina: document.getElementById('adm-disciplina').value.trim(),
+                assunto: document.getElementById('adm-assunto').value.trim(),
+                enunciado: document.getElementById('adm-enunciado').value.trim(),
+                alternativas: [
+                    document.getElementById('adm-alt0').value.trim(),
+                    document.getElementById('adm-alt1').value.trim(),
+                    document.getElementById('adm-alt2').value.trim(),
+                    document.getElementById('adm-alt3').value.trim(),
+                    document.getElementById('adm-alt4').value.trim()
+                ],
+                correta: parseInt(document.getElementById('adm-correta').value),
+                explicacao: document.getElementById('adm-explicacao').value.trim()
+            };
+
+            // Adiciona ao array global
+            bancoDeQuestoes.push(novaQ);
+
+            // Salva separadamente no LocalStorage
+            let custom = JSON.parse(localStorage.getItem('bancoDeQuestoes_custom') || '[]');
+            custom.push(novaQ);
+            localStorage.setItem('bancoDeQuestoes_custom', JSON.stringify(custom));
+
+            alert('Questão cadastrada com sucesso!');
+            document.getElementById('form-questao').reset();
+            mostrarDisciplinas();
         }
 
         function mostrarAssuntosDaDisciplinaAtual() {
             selecionarDisciplina(disciplinaAtual);
         }
 
-        // Lógica de Seleção
         function selecionarDisciplina(disciplina) {
             disciplinaAtual = disciplina;
             document.getElementById('titulo-disciplina-escolhida').textContent = disciplina;
@@ -661,6 +495,11 @@
                 document.getElementById('subject').textContent = assuntoEscolhido;
             }
 
+            if (questoesFiltradas.length === 0) {
+                alert("Não há questões para este assunto!");
+                return;
+            }
+
             questaoAtual = 0;
             pontuacao = 0;
             document.getElementById('score').textContent = 0;
@@ -671,7 +510,6 @@
             carregarQuestao();
         }
 
-        // Lógica do Quiz
         function carregarQuestao() {
             const q = questoesFiltradas[questaoAtual];
             document.getElementById('question').textContent = q.enunciado;
@@ -728,9 +566,8 @@
             }
         }
 
-        // Inicia o app mapeando as disciplinas
+        // Inicialização
         carregarDisciplinas();
-
     </script>
 </body>
 </html>
