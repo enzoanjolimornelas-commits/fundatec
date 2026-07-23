@@ -40,8 +40,6 @@
             border-radius: 16px;
             box-shadow: 0 10px 25px rgba(0,0,0,0.05);
             padding: 24px;
-            max-height: 90vh;
-            overflow-y: auto;
         }
 
         /* --- Telas do Sistema --- */
@@ -49,7 +47,7 @@
             display: none;
         }
         
-        #disciplina-screen { display: block; }
+        #disciplina-screen { display: block; } /* Tela inicial */
 
         .screen-header {
             text-align: center;
@@ -260,281 +258,1468 @@
     </div>
 
     <script>
-        // Banco de Questões Completo
+        // Banco de Questões Seccionado
+        // Note a nova propriedade 'assunto' em cada objeto.
         const bancoDeQuestoes = [
-            // --- DIREITO PENAL E LEGISLAÇÃO ESPECIAL ---
+            // PORTUGUÊS
             {
-                disciplina: "Direito",
-                assunto: "Legislação Especial: Lei Maria da Penha",
-                enunciado: "O artigo 147 do Código Penal (CP) prevê, para o crime de ameaça, pena de um a seis meses ou multa. Em uma discussão no âmbito doméstico, José ameaçou sua esposa dizendo que iria matá-la. Ao final do processo, ele foi condenado ao pagamento de uma multa de quatro salários mínimos. Nesse sentido, é correto afirmar que a condenação está:",
+                disciplina: "Língua Portuguesa",
+                assunto: "Sintaxe: Tipos de Predicado",
+                enunciado: "Na frase 'Os candidatos terminaram a prova exaustos', classifique o tipo de predicado:",
                 alternativas: [
-                    "De acordo com a Lei Maria da Penha e em desacordo com a jurisprudência do STJ.",
-                    "De acordo com a Lei Maria da Penha e com a jurisprudência do STJ.",
-                    "Em desacordo com a Lei Maria da Penha e de acordo com a jurisprudência do STJ.",
-                    "Em desacordo com a Lei Maria da Penha e com a jurisprudência do STJ.",
-                    "De acordo com a Lei Maria da Penha e com a jurisprudência do STF."
+                    "Predicado Verbal",
+                    "Predicado Nominal",
+                    "Predicado Verbo-Nominal",
+                    "Predicado Inexistente",
+                    "Predicado Simples"
                 ],
-                correta: 3,
-                explicacao: "Correto! A condenação é totalmente ilegal. O Art. 17 da Lei Maria da Penha (Lei nº 11.340/2006) proíbe expressamente a aplicação de prestação pecuniária ou substituição da pena por pagamento isolado de multa nos crimes de violência doméstica contra a mulher."
-            },
-            {
-                disciplina: "Direito",
-                assunto: "Direito Penal: Crimes Contra a Liberdade Pessoal",
-                enunciado: "Sobre o crime de redução à condição análoga à de escravo (art. 149, CP), analise as assertivas a seguir: I. A efetiva restrição de liberdade das vítimas é prescindível para a configuração do crime. II. O art. 149 do CP prevê outras condutas que podem ofender o bem jurídico tutelado, entre elas, submeter o sujeito passivo a condições degradantes de trabalho. III. A pena desse crime é aumentada de metade se cometido contra criança ou adolescente. Assinale a alternativa correta.",
-                alternativas: [
-                    "Todas as assertivas estão corretas.",
-                    "Todas as assertivas estão incorretas.",
-                    "Apenas as assertivas I e II estão corretas.",
-                    "Apenas as assertivas I e III estão corretas.",
-                    "Apenas as assertivas II e III estão corretas."
-                ],
-                correta: 0,
-                explicacao: "Correto! Todas estão certas. 'Prescindível' significa dispensável. O STF entende que não é obrigatória a restrição de ir e vir para configurar o crime, bastando violar a dignidade do trabalhador com jornadas exaustivas ou condições degradantes."
-            },
-            {
-                disciplina: "Direito",
-                assunto: "Direito Penal: Excludentes de Ilicitude",
-                enunciado: "Quanto ao excesso do agente na utilização das excludentes de ilicitude, é correto afirmar que:",
-                alternativas: [
-                    "O agente, em qualquer das hipóteses de exclusão da ilicitude, responderá pelo excesso doloso ou culposo.",
-                    "O agente, em qualquer das hipóteses de exclusão da ilicitude, responderá pelo excesso quando doloso.",
-                    "O agente, em qualquer das hipóteses de exclusão da ilicitude, responderá pelo excesso quando culposo.",
-                    "O agente, apenas em caso de legítima defesa, responderá pelo excesso culposo.",
-                    "O agente, apenas em caso de legítima defesa, responderá pelo excesso doloso ou culposo."
-                ],
-                correta: 0,
-                explicacao: "Correto! É a cópia exata do Parágrafo único do Art. 23 do Código Penal. O excesso punível se aplica a qualquer excludente e o agente sempre responderá, seja doloso ou culposo."
-            },
-            {
-                disciplina: "Direito",
-                assunto: "Direito Penal: Medidas de Segurança",
-                enunciado: "Em relação ao tempo de duração máxima da medida de segurança, qual alternativa aponta corretamente entendimento sumulado do STJ sobre o tema?",
-                alternativas: [
-                    "O tempo de duração da medida de segurança não deve ultrapassar o limite máximo da pena abstratamente cominada ao delito praticado.",
-                    "O tempo de duração da medida de segurança não deve ultrapassar o limite máximo de 30 anos.",
-                    "O tempo de duração da medida de segurança não deve ultrapassar o limite máximo da pena concretamente cominada ao delito praticado.",
-                    "O tempo de duração da medida de segurança não deve ultrapassar o limite máximo de 40 anos.",
-                    "O tempo de duração da medida de segurança não deve ultrapassar o limite máximo de 1 ano."
-                ],
-                correta: 0,
-                explicacao: "Correto! Súmula 527 do STJ: O tempo de duração da medida de segurança não deve ultrapassar o limite máximo da pena abstratamente cominada ao delito."
-            },
-            {
-                disciplina: "Direito",
-                assunto: "Legislação Especial: Lei de Drogas",
-                enunciado: "Em relação à possibilidade de aplicação da causa de diminuição prevista no parágrafo quarto do artigo 33 da Lei de Drogas (tráfico privilegiado), assinale a alternativa que converge com o entendimento dos Tribunais Superiores.",
-                alternativas: [
-                    "Apesar de investigações criminais em curso serem insuficientes para o afastamento do tráfico privilegiado, ações penais em curso, assim como registro de atos infracionais, são suficientes para afastar a causa de diminuição.",
-                    "Apesar de investigações criminais e ações penais em curso serem insuficientes para o afastamento do tráfico privilegiado, o registro de atos infracionais é suficiente para afastar a causa de diminuição.",
-                    "Apesar de investigações criminais em curso e registro de atos infracionais serem insuficientes para o afastamento do tráfico privilegiado, ações penais em curso são suficientes para afastar a causa de diminuição.",
-                    "Apesar de ações penais em curso serem insuficientes para o afastamento do tráfico privilegiado, investigações policiais em curso, assim como registro de atos infracionais, são suficientes para afastar a causa de diminuição.",
-                    "Tanto a existência de investigações ou ações penais em curso quanto o registro de atos infracionais são insuficientes, por si só, para afastar o tráfico privilegiado."
-                ],
-                correta: 4,
-                explicacao: "Correto! O STF (Tema 1.139) e o STJ firmaram tese de que inquéritos, ações penais em andamento ou atos infracionais anteriores são insuficientes, por si só, para afastar o tráfico privilegiado."
-            },
-            {
-                disciplina: "Direito",
-                assunto: "Legislação Especial: Lei de Execução Penal (LEP)",
-                enunciado: "A Lei nº 13.769/2018 incluiu o § 3º no art. 112 da LEP, prevendo progressão de regime especial no caso de mulher gestante, mãe ou responsável por crianças/PCD. Essa progressão diferenciada exige, entre outros:",
-                alternativas: [
-                    "Ter cumprido ao menos 1/8 da pena no regime anterior e não ter integrado organização criminosa.",
-                    "Ter cumprido ao menos 1/8 da pena no regime anterior e não ter integrado associação criminosa.",
-                    "Ter cumprido ao menos 1/6 da pena no regime anterior e não ter integrado organização criminosa.",
-                    "Ter cumprido ao menos 1/6 da pena no regime anterior e não ter integrado associação criminosa.",
-                    "Ter cumprido ao menos 1/8 da pena no regime anterior e ser primária, independentemente do bom comportamento."
-                ],
-                correta: 0,
-                explicacao: "Correto! Art. 112, § 3º da LEP: exige primariedade, cumprimento de 1/8 da pena e não integrar organização criminosa."
-            },
-            {
-                disciplina: "Direito",
-                assunto: "Legislação Especial: Lei de Execução Penal (LEP)",
-                enunciado: "Sobre o trabalho do condenado, analise as assertivas: I. Não está sujeito à CLT. II. Será remunerado, não podendo ser inferior a um salário mínimo. III. Tarefas de prestação de serviço à comunidade não serão remuneradas. Quais estão corretas?",
-                alternativas: [
-                    "Apenas III.",
-                    "Apenas I e II.",
-                    "Apenas I e III.",
-                    "Apenas II e III.",
-                    "I, II e III."
-                ],
-                correta: 2,
-                explicacao: "Correto! Apenas I e III. O erro da II é que a remuneração não pode ser inferior a 3/4 (três quartos) do salário mínimo, e não a um salário mínimo inteiro."
-            },
-            {
-                disciplina: "Direito",
-                assunto: "Legislação Especial: Lei de Execução Penal (LEP)",
-                enunciado: "Sobre a remição pelo estudo, assinale o que dispõe a LEP (Lei nº 7.210/1984).",
-                alternativas: [
-                    "A remição se dá à razão de 1 dia a cada 12 horas de frequência escolar divididas, no máximo, em 3 dias.",
-                    "A remição se dá à razão de 1 dia a cada 12 horas de frequência escolar divididas, no mínimo, em 3 dias. Pode ser presencial ou EAD. O tempo será acrescido de 1/3 no caso de conclusão de nível de ensino.",
-                    "A remição se dá à razão de 1 dia a cada 12 horas de frequência escolar obrigatoriamente presencial.",
-                    "A remição se dá a cada 24 horas de estudo."
-                ],
-                correta: 1,
-                explicacao: "Correto! Art. 126 da LEP: 12 horas diluídas no mínimo em 3 dias, ensino presencial ou EAD, com acréscimo de 1/3 em caso de conclusão de nível fundamental, médio ou superior."
-            },
-            {
-                disciplina: "Direito",
-                assunto: "Direito Penal: Consumação e Arrependimento Posterior",
-                enunciado: "José subtraiu um computador portátil e levou para casa. No dia seguinte, devolveu-o voluntariamente, mas o fato já havia sido registrado na delegacia. Diante disso, é correto afirmar que:",
-                alternativas: [
-                    "Ocorreu desistência voluntária.",
-                    "Foi consumado o furto.",
-                    "É caso de arrependimento eficaz com redução de metade da pena.",
-                    "Será extinta a punibilidade.",
-                    "Trata-se de tentativa de furto."
-                ],
-                correta: 1,
-                explicacao: "Correto! O furto consuma-se com a inversão da posse (teoria da Amotio). A devolução posterior configura arrependimento posterior (Art. 16 do CP), que reduz a pena de 1 a 2/3, mas não afasta a consumação."
-            },
-            {
-                disciplina: "Direito",
-                assunto: "Direito Penal: Lei de Drogas e Reincidência",
-                enunciado: "Murilo foi condenado pelo crime do art. 28 da Lei nº 11.343/2006 (posse para consumo pessoal) e, posteriormente, condenado por tráfico (art. 33). O juiz considerou a condenação anterior para fins de reincidência. A conduta do magistrado foi:",
-                alternativas: [
-                    "Acertada, pois gera reincidência.",
-                    "Equivocada, pois condenação pelo artigo 28 da Lei de Drogas não gera reincidência.",
-                    "Acertada devido ao prazo.",
-                    "Equivocada apenas pelo regime."
-                ],
-                correta: 1,
-                explicacao: "Correto! Conforme jurisprudência pacificada do STJ, a condenação anterior pelo crime do art. 28 da Lei de Drogas (porte para uso) não gera reincidência."
-            },
-
-            // --- PROVA SUSEPE/RS 2022 ---
-            {
-                disciplina: "Direito",
-                assunto: "Legislação Especial: Lei Maria da Penha",
-                enunciado: "(Fundatec - SUSEPE/RS 2022) De acordo com a Lei Maria da Penha, a inquirição de mulher em situação de violência doméstica obedecerá às seguintes diretrizes: I. Salvaguarda da integridade física e psíquica. II. Garantia de proteção policial. III. Não revitimização, evitando sucessivas inquirições sobre o mesmo fato. Quais estão corretas?",
-                alternativas: [
-                    "Apenas I.",
-                    "Apenas II.",
-                    "Apenas I e II.",
-                    "Apenas I e III.",
-                    "I, II e III."
-                ],
-                correta: 4,
-                explicacao: "Correto! As três diretrizes constam expressamente no Art. 10-A da Lei Maria da Penha[cite: 1]."
-            },
-            {
-                disciplina: "Direito",
-                assunto: "Legislação Especial: Prisão Temporária",
-                enunciado: "(Fundatec - SUSEPE/RS 2022) Nos termos da Lei nº 7.960/1989, a prisão temporária comum terá o prazo de ________ dias, prorrogável por igual período em caso de extrema e comprovada necessidade.",
-                alternativas: ["5 (cinco)", "10 (dez)", "15 (quinze)", "30 (trinta)", "90 (noventa)"],
-                correta: 0,
-                explicacao: "Correto! Segundo o Art. 2º da Lei 7.960/1989, a prisão temporária comum dura 5 dias, prorrogáveis por mais 5[cite: 1]."
-            },
-            {
-                disciplina: "Direito",
-                assunto: "Direitos Humanos",
-                enunciado: "(Fundatec - SUSEPE/RS 2022) O Pacto de São José da Costa Rica determina que não se deve impor a pena de morte à pessoa que, no momento do delito, for menor de ________ anos, ou maior de ________ anos, nem aplicá-la à mulher grávida.",
-                alternativas: [
-                    "18 (dezoito) - 60 (sessenta)",
-                    "18 (dezoito) - 70 (setenta)",
-                    "16 (dezesseis) - 60 (sessenta)",
-                    "16 (dezesseis) - 70 (setenta)",
-                    "21 (vinte e um) - 70 (setenta)"
-                ],
-                correta: 1,
-                explicacao: "Correto! O Pacto de San José da Costa Rica proíbe a pena de morte para menores de 18, maiores de 70 anos e gestantes[cite: 1]."
-            },
-            {
-                disciplina: "Direito",
-                assunto: "Estatuto do Desarmamento",
-                enunciado: "(Fundatec - SUSEPE/RS 2022) De acordo com a Lei nº 10.826/2003, é vedado ao menor de ________ anos adquirir arma de fogo.",
-                alternativas: ["18 (dezoito)", "20 (vinte)", "25 (vinte e cinco)", "30 (trinta)", "35 (trinta e cinco)"],
-                correta: 2,
-                explicacao: "Correto! A idade mínima para aquisição de arma de fogo no Brasil é de 25 anos[cite: 1]."
-            },
-            {
-                disciplina: "Informática",
-                assunto: "Windows 10",
-                enunciado: "(Fundatec - SUSEPE/RS 2022) No Microsoft Windows 10, qual nome de arquivo é INVÁLIDO?",
-                alternativas: [
-                    "programa_de_informática.docx",
-                    "praia ou serra?.pdf",
-                    "#cronograma do projeto.xlsx",
-                    "lista-mercado.txt",
-                    "controle(1).exe"
-                ],
-                correta: 1,
-                explicacao: "Correto! O Windows proíbe o uso do caractere de interrogação (?) em nomes de arquivos[cite: 1]."
-            },
-            {
-                disciplina: "Informática",
-                assunto: "Excel 2016",
-                enunciado: "(Fundatec - SUSEPE/RS 2022) Um ________ do Microsoft Excel 2016 é um pequeno gráfico, posicionado em uma única célula, que fornece uma representação visual de dados.",
-                alternativas: ["gráfico dinâmico", "gráfico SmartArt", "minigráfico", "mapa 3D", "símbolo"],
-                correta: 2,
-                explicacao: "Correto! Minigráficos (sparklines) ocupam uma única célula para mostrar tendências[cite: 1]."
-            },
-            {
-                disciplina: "Informática",
-                assunto: "Gmail",
-                enunciado: "(Fundatec - SUSEPE/RS 2022) Quais as opções disponíveis para o 'Período de cancelamento de envio' no Gmail?",
-                alternativas: [
-                    "5, 10, 20 ou 30 segundos.",
-                    "5, 10, 20 ou 30 minutos.",
-                    "1, 2, 5 ou 10 minutos.",
-                    "1, 2, 3, 4 ou 5 horas."
-                ],
-                correta: 0,
-                explicacao: "Correto! O Gmail permite cancelar o envio configurando prazos de 5, 10, 20 ou 30 segundos[cite: 1]."
-            },
-
-            // --- SIMULADO PPRS / GERAL ---
-            {
-                disciplina: "Informática",
-                assunto: "Windows 10: Gerenciador de Tarefas",
-                enunciado: "(Simulado PPRS) No Gerenciador de Tarefas do Windows 10, qual aba permite visualizar detalhadamente o consumo de CPU, memória, disco e rede por processo?",
-                alternativas: ["Processos.", "Inicializar.", "Usuários.", "Desempenho.", "Histórico de aplicativos."],
-                correta: 0,
-                explicacao: "Correto! A aba 'Processos' lista as aplicações ativas e seus consumos individuais."
-            },
-            {
-                disciplina: "Informática",
-                assunto: "Microsoft Word",
-                enunciado: "(Simulado PPRS) Na guia Página Inicial do Microsoft Word 2016, é possível utilizar as seguintes funções, EXCETO:",
-                alternativas: [
-                    "Inserir cabeçalho e rodapé no documento.",
-                    "Alterar o tipo e o tamanho da fonte do texto.",
-                    "Centralizar e justificar um parágrafo.",
-                    "Aplicar estilos rápidos de formatação ao texto.",
-                    "Localizar e substituir palavras no documento."
-                ],
-                correta: 0,
-                explicacao: "Correto! Cabeçalho e Rodapé ficam localizados na aba 'Inserir'."
-            },
-            {
-                disciplina: "Direito",
-                assunto: "Direito Penal: Penas Privativas de Liberdade",
-                enunciado: "(Simulado PPRS) A respeito das penas privativas de liberdade no Código Penal, assinale a correta:",
-                alternativas: [
-                    "A reclusão só pode ser fechada.",
-                    "O condenado não reincidente, com pena superior a 4 e até 8 anos, poderá iniciar no regime semiaberto.",
-                    "A detenção só admite regime fechado.",
-                    "O regime aberto ocorre em colônia agrícola."
-                ],
-                correta: 1,
-                explicacao: "Correto! Cópia literal do Art. 33, § 2º, 'b' do Código Penal."
-            },
-            {
-                disciplina: "Direito",
-                assunto: "Direito Constitucional: Fundamentos",
-                enunciado: "(Simulado PPRS) Assinale a alternativa que NÃO apresenta um fundamento da República Federativa do Brasil:",
-                alternativas: ["Soberania.", "Concessão de asilo político.", "Dignidade da pessoa humana.", "Pluralismo político."],
-                correta: 1,
-                explicacao: "Correto! A concessão de asilo político é princípio das relações internacionais (Art. 4º)."
+                correta: 2, 
+                explicacao: "Correto! É um predicado verbo-nominal porque possui dois núcleos: um verbo de ação ('terminaram') e um predicativo do sujeito que indica estado ('exaustos')."
             },
             {
                 disciplina: "Língua Portuguesa",
-                assunto: "Ortografia",
-                enunciado: "(Simulado PPRS) Qual das palavras abaixo é escrita corretamente com 'z'?",
-                alternativas: ["Bele__a.", "Pe__ado.", "Coi__a.", "Ga__olina."],
+                assunto: "Sintaxe: Tipos de Predicado",
+                enunciado: "(Fundatec) Assinale a alternativa que apresenta um predicado verbo-nominal.",
+                alternativas: [
+                    "Os candidatos chegaram atrasados.",
+                    "A tempestade destruiu o telhado da escola.",
+                    "A criança parecia doente após o almoço.",
+                    "Os pássaros voavam velozmente pelo céu.",
+                    "Nós precisamos de muita ajuda hoje."
+                ],
                 correta: 0,
-                explicacao: "Correto! 'Beleza' deriva de adjetivo + sufixo '-eza' (escrito com Z). As demais usam 'S'."
-            }
+                explicacao: "Correto! O predicado verbo-nominal possui dois núcleos: um verbo de ação ('chegaram') e um predicativo do sujeito indicando estado ('atrasados')."
+            },
+            {
+                disciplina: "Língua Portuguesa",
+                assunto: "Crase",
+                enunciado: "(Fundatec) Assinale a alternativa que preenche corretamente a lacuna: 'O diretor referiu-se ___ nova funcionária com muito respeito.'",
+                alternativas: ["a", "à", "as", "às", "para"],
+                correta: 1,
+                explicacao: "Correto! O verbo 'referir-se' exige a preposição 'a' e a palavra 'nova' admite o artigo 'a'. A junção forma a crase (à)."
+            },
+            {
+                disciplina: "Língua Portuguesa",
+                assunto: "Concordância Verbal",
+                enunciado: "(Fundatec) Assinale a alternativa correta quanto à concordância verbal:",
+                alternativas: [
+                    "Fazem três anos que não o vejo.",
+                    "Haviam muitas pessoas na sala de espera.",
+                    "Alugam-se apartamentos nesta região.",
+                    "Necessitam-se de funcionários com urgência.",
+                    "Vão fazer cinco anos que me mudei de cidade."
+                ],
+                correta: 2,
+                explicacao: "Correto! Na voz passiva sintética, o verbo concorda com o sujeito (apartamentos são alugados). Os verbos 'fazer' e 'haver' no sentido de tempo ou existir ficam no singular."
+            },
+            {
+                disciplina: "Língua Portuguesa",
+                assunto: "Verbos",
+                enunciado: "(Fundatec) Analise a forma verbal destacada na frase: 'Se ele MANTIVER o ritmo de estudos, será aprovado.' O verbo está conjugado no:",
+                alternativas: [
+                    "Futuro do pretérito do indicativo.",
+                    "Presente do subjuntivo.",
+                    "Futuro do subjuntivo.",
+                    "Pretérito imperfeito do subjuntivo.",
+                    "Infinitivo pessoal."
+                ],
+                correta: 2,
+                explicacao: "Correto! 'Mantiver' é o futuro do subjuntivo do verbo 'manter', indicando uma hipótese futura."
+            },
+
+            // RACIOCÍNIO LÓGICO
+            {
+                disciplina: "Raciocínio Lógico",
+                assunto: "Equivalência Lógica",
+                enunciado: "Qual é a proposição logicamente equivalente a: 'Se estudo muito, então sou aprovado no concurso'?",
+                alternativas: [
+                    "Se sou aprovado no concurso, então estudo muito.",
+                    "Se não estudo muito, então não sou aprovado no concurso.",
+                    "Estudo muito e sou aprovado no concurso.",
+                    "Se não sou aprovado no concurso, então não estudo muito.",
+                    "Não estudo muito ou não sou aprovado no concurso."
+                ],
+                correta: 3,
+                explicacao: "Correto! Esta é a regra da Contrapositiva (Inverte e Nega). 'Se P então Q' é equivalente a 'Se não Q então não P'."
+            },
+            {
+                disciplina: "Raciocínio Lógico",
+                assunto: "Negação Lógica",
+                enunciado: "(Fundatec) Considere a proposição lógica: 'Se o candidato estuda, então ele passa na prova'. A negação lógica dessa proposição é:",
+                alternativas: [
+                    "Se o candidato não estuda, então ele não passa na prova.",
+                    "O candidato não estuda ou ele não passa na prova.",
+                    "O candidato estuda e não passa na prova.",
+                    "Se o candidato passa na prova, então ele estuda.",
+                    "O candidato não estuda e passa na prova."
+                ],
+                correta: 2,
+                explicacao: "Correto! Para negar uma condicional (Se P, então Q), usa-se a regra do 'Mané' (Mantém a primeira E Nega a segunda): O candidato estuda E não passa na prova."
+            },
+            {
+                disciplina: "Raciocínio Lógico",
+                assunto: "Diagramas Lógicos",
+                enunciado: "(Fundatec) Se todo A é B, e nenhum B é C, é correto afirmar logicamente que:",
+                alternativas: [
+                    "Algum A é C.",
+                    "Nenhum A é C.",
+                    "Todo C é A.",
+                    "Algum C é B.",
+                    "Todo B é A."
+                ],
+                correta: 1,
+                explicacao: "Correto! Se A está totalmente dentro de B, e B e C não se tocam, então é impossível que A toque em C."
+            },
+            {
+                disciplina: "Raciocínio Lógico",
+                assunto: "Tautologia",
+                enunciado: "(Fundatec) Assinale a alternativa que apresenta uma tautologia:",
+                alternativas: [
+                    "Chove ou não chove.",
+                    "Se chove, então faz frio.",
+                    "Chove e faz frio.",
+                    "Não chove e não faz frio.",
+                    "Chove se, e somente se, faz frio."
+                ],
+                correta: 0,
+                explicacao: "Correto! Tautologia é uma proposição sempre verdadeira. 'P ou não P' (Princípio do terceiro excluído) sempre resultará em Verdadeiro."
+            },
+
+            // DIREITO
+            {
+                disciplina: "Direito",
+                assunto: "Direito Constitucional: Fundamentos",
+                enunciado: "Conforme o Art. 1º da CF, assinale a alternativa que apresenta um dos FUNDAMENTOS da República Federativa do Brasil:",
+                alternativas: [
+                    "Construir uma sociedade livre, justa e solidária.",
+                    "A dignidade da pessoa humana.",
+                    "Erradicar a pobreza e a marginalização.",
+                    "Garantir o desenvolvimento nacional.",
+                    "A concessão de asilo político."
+                ],
+                correta: 1,
+                explicacao: "Correto! A dignidade da pessoa humana é um fundamento (SO-CI-DI-VA-PLU). A, C e D são objetivos fundamentais."
+            },
+            {
+                disciplina: "Direito",
+                assunto: "Direito Administrativo: Princípios",
+                enunciado: "(Fundatec) Na Administração Pública, o princípio que exige que o ato seja praticado visando sempre o interesse público, sem favoritismos, é a:",
+                alternativas: [
+                    "Legalidade.",
+                    "Impessoalidade.",
+                    "Moralidade.",
+                    "Publicidade.",
+                    "Eficiência."
+                ],
+                correta: 1,
+                explicacao: "Correto! O princípio da Impessoalidade determina tratamento igualitário, sem discriminações."
+            },
+            {
+                disciplina: "Direito",
+                assunto: "Direito Administrativo: Atos Administrativos",
+                enunciado: "(Fundatec) São atributos (ou características) do ato administrativo, EXCETO:",
+                alternativas: [
+                    "Presunção de legitimidade.",
+                    "Imperatividade.",
+                    "Autoexecutoriedade.",
+                    "Tipicidade.",
+                    "Legalidade estrita."
+                ],
+                correta: 4,
+                explicacao: "Correto! A legalidade é um PRINCÍPIO, não um atributo. Os atributos formam o mnemônico PATI."
+            },
+    // --- LÍNGUA PORTUGUESA ---
+    {
+        disciplina: "Língua Portuguesa",
+        assunto: "Acentuação Gráfica",
+        enunciado: "(Fundatec) Assinale a alternativa em que todas as palavras são acentuadas obedecendo à mesma regra gramatical:",
+        alternativas: [
+            "lâmpada, vítima, pássaro.",
+            "café, caju, ali.",
+            "fácil, tórax, cipó.",
+            "saúde, saída, história.",
+            "vêm, têm, chapéu."
+        ],
+        correta: 0,
+        explicacao: "Correto! Todas as palavras da alternativa são proparoxítonas, e a regra determina que toda palavra proparoxítona deve ser acentuada."
+    },
+    {
+        disciplina: "Língua Portuguesa",
+        assunto: "Pontuação",
+        enunciado: "(Fundatec) Em relação ao uso da vírgula, assinale a alternativa inteiramente correta:",
+        alternativas: [
+            "O aluno, estudou muito para a prova de ontem.",
+            "Os candidatos, que chegaram cedo, conseguiram bons lugares.",
+            "A banca exigiu, dos candidatos muito esforço.",
+            "Na tarde de ontem choveu, muito forte.",
+            "Maria, comprou um carro novo, no mês passado."
+        ],
+        correta: 1,
+        explicacao: "Correto! As vírgulas estão isolando corretamente a oração subordinada adjetiva explicativa ('que chegaram cedo'). Nas demais alternativas, há separação proibida de sujeito e predicado ou de verbo e complemento."
+    },
+    {
+        disciplina: "Língua Portuguesa",
+        assunto: "Morfologia: Funções do 'Que'",
+        enunciado: "(Fundatec) Na frase 'O material QUE comprei é muito útil', a palavra destacada classifica-se morfologicamente como:",
+        alternativas: [
+            "Conjunção integrante.",
+            "Pronome relativo.",
+            "Partícula expletiva.",
+            "Pronome interrogativo.",
+            "Conjunção coordenativa explicativa."
+        ],
+        correta: 1,
+        explicacao: "Correto! O 'que' pode ser substituído por 'o qual' (O material 'o qual' comprei), pois está retomando o substantivo anterior (material). Logo, exerce função de pronome relativo."
+    },
+    {
+        disciplina: "Língua Portuguesa",
+        assunto: "Colocação Pronominal",
+        enunciado: "(Fundatec) Assinale a alternativa em que a colocação pronominal desrespeita a norma-padrão da Língua Portuguesa:",
+        alternativas: [
+            "Nunca me disseram a verdade.",
+            "Alguém o ajudou com as malas.",
+            "Entregar-te-ei o documento amanhã.",
+            "Se me chamarem, eu irei.",
+            "Me empresta a sua caneta preta?"
+        ],
+        correta: 4,
+        explicacao: "Correto! É regra básica: segundo a norma culta, não se inicia frase com pronome oblíquo átono (Me, Te, Se, Nos, Vos...). O correto seria: 'Empresta-me a sua caneta preta?'."
+    },
+
+    // --- RACIOCÍNIO LÓGICO ---
+    {
+        disciplina: "Raciocínio Lógico",
+        assunto: "Conjuntos",
+        enunciado: "(Fundatec) Em uma sala com 40 concurseiros, 25 estudam Português e 20 estudam Raciocínio Lógico. Sabendo que todos estudam pelo menos uma dessas matérias, quantos alunos estudam AMBAS as matérias?",
+        alternativas: [
+            "5",
+            "10",
+            "15",
+            "20",
+            "25"
+        ],
+        correta: 0,
+        explicacao: "Correto! O total real de alunos é 40. Somando os grupos temos: 25 + 20 = 45. A intersecção (quem faz os dois) é exatamente a diferença que ultrapassa o total: 45 - 40 = 5 alunos."
+    },
+    {
+        disciplina: "Raciocínio Lógico",
+        assunto: "Análise Combinatória",
+        enunciado: "(Fundatec) De quantas maneiras diferentes podemos organizar 5 pessoas em uma fila indiana?",
+        alternativas: [
+            "25",
+            "50",
+            "120",
+            "60",
+            "100"
+        ],
+        correta: 2,
+        explicacao: "Correto! Trata-se de uma permutação simples de 5 elementos (Calculada por 5 fatorial, ou 5!). Conta: 5 x 4 x 3 x 2 x 1 = 120."
+    },
+    {
+        disciplina: "Raciocínio Lógico",
+        assunto: "Sequências Lógicas",
+        enunciado: "(Fundatec) Qual é o próximo número da sequência lógica: 2, 5, 10, 17, 26, ...?",
+        alternativas: [
+            "35",
+            "37",
+            "39",
+            "32",
+            "41"
+        ],
+        correta: 1,
+        explicacao: "Correto! A diferença entre os números aumenta em números ímpares consecutivos: +3 (vira 5), +5 (vira 10), +7 (vira 17), +9 (vira 26). O próximo salto é +11, ou seja, 26 + 11 = 37."
+    },
+
+    // --- DIREITO ---
+    {
+        disciplina: "Direito",
+        assunto: "Direito Constitucional: Art. 5º",
+        enunciado: "(Fundatec) De acordo com o Art. 5º da Constituição Federal, é correto afirmar sobre o direito de associação:",
+        alternativas: [
+            "É plena a liberdade de associação para fins lícitos, inclusive as de caráter paramilitar.",
+            "A criação de associações independe de autorização, sendo vedada a interferência estatal em seu funcionamento.",
+            "Ninguém poderá ser compelido a associar-se, mas o Estado pode obrigar a permanência na associação.",
+            "As associações só poderão ser compulsoriamente dissolvidas por decisão administrativa.",
+            "As atividades das associações não poderão ser suspensas, nem mesmo por decisão judicial."
+        ],
+        correta: 1,
+        explicacao: "Correto! O Art. 5º, inciso XVIII, define expressamente que a criação de associações independe de autorização e o Estado não pode interferir. As de caráter paramilitar são vedadas."
+    },
+    {
+        disciplina: "Direito",
+        assunto: "Direito Administrativo: Poderes",
+        enunciado: "(Fundatec) O poder que a Administração Pública tem para apurar infrações e aplicar sanções aos servidores públicos sujeitos à sua disciplina interna é denominado de Poder:",
+        alternativas: [
+            "de Polícia.",
+            "Regulamentar.",
+            "Hierárquico.",
+            "Disciplinar.",
+            "Vinculado."
+        ],
+        correta: 3,
+        explicacao: "Correto! O Poder Disciplinar é a prerrogativa de apurar infrações e aplicar penalidades aos servidores públicos e demais pessoas sujeitas à disciplina específica do órgão."
+    },
+    {
+        disciplina: "Direito",
+        assunto: "Direito Administrativo: Improbidade e Crimes",
+        enunciado: "(Fundatec) O funcionário público que EXIGE, para si ou para outrem, direta ou indiretamente, ainda que fora da função, vantagem indevida, comete o crime de:",
+        alternativas: [
+            "Peculato.",
+            "Prevaricação.",
+            "Concussão.",
+            "Corrupção passiva.",
+            "Advocacia administrativa."
+        ],
+        correta: 2,
+        explicacao: "Correto! Na lei penal brasileira, o verbo 'exigir' caracteriza o crime de concussão (Art. 316 do CP). Se o verbo fosse 'solicitar' ou 'receber', seria corrupção passiva."
+    },
+    // --- LÍNGUA PORTUGUESA ---
+    {
+        disciplina: "Língua Portuguesa",
+        assunto: "Acentuação Gráfica",
+        enunciado: "(Fundatec) As palavras 'História', 'Série' e 'Água' são acentuadas graficamente pela mesma regra. Assinale a alternativa que apresenta uma palavra acentuada pelo mesmo motivo:",
+        alternativas: [
+            "Saúde.",
+            "Lâmpada.",
+            "Relógio.",
+            "Baú.",
+            "Você."
+        ],
+        correta: 2,
+        explicacao: "Correto! As três palavras do enunciado são paroxítonas terminadas em ditongo. A única alternativa que segue essa mesma regra é 'Relógio'."
+    },
+    {
+        disciplina: "Língua Portuguesa",
+        assunto: "Ortografia: Uso dos Porquês",
+        enunciado: "(Fundatec) Assinale a alternativa que preenche corretamente a lacuna: 'Não sei o _______ de tanta confusão.'",
+        alternativas: [
+            "porque",
+            "porquê",
+            "por que",
+            "por quê",
+            "porqüê"
+        ],
+        correta: 1,
+        explicacao: "Correto! Quando a palavra vem antecedida de determinante (neste caso, o artigo 'o'), ela se torna um substantivo. O correto é usar 'porquê' (junto e com acento)."
+    },
+    {
+        disciplina: "Língua Portuguesa",
+        assunto: "Tipologia Textual",
+        enunciado: "(Fundatec) Um texto que tem como principal objetivo instruir o leitor, indicando passos a serem seguidos (como uma bula de remédio ou manual de instruções), pertence predominantemente ao tipo textual:",
+        alternativas: [
+            "Narrativo.",
+            "Descritivo.",
+            "Dissertativo-argumentativo.",
+            "Injuntivo.",
+            "Expositivo."
+        ],
+        correta: 3,
+        explicacao: "Correto! Textos injuntivos (ou instrucionais) usam verbos no imperativo e buscam orientar o comportamento do leitor."
+    },
+
+    // --- MATEMÁTICA E RACIOCÍNIO LÓGICO ---
+    {
+        disciplina: "Matemática",
+        assunto: "Porcentagem",
+        enunciado: "(Fundatec) Um produto que custava R$ 250,00 sofreu um acréscimo de 20%. Em seguida, sobre o novo valor, foi aplicado um desconto de 10%. O valor final do produto é:",
+        alternativas: [
+            "R$ 275,00",
+            "R$ 270,00",
+            "R$ 260,00",
+            "R$ 280,00",
+            "R$ 255,00"
+        ],
+        correta: 1,
+        explicacao: "Correto! Passo 1: 20% de 250 = 50. Novo valor = R$ 300,00. Passo 2: 10% de 300 = 30. Desconto = R$ 300 - 30 = R$ 270,00. Cuidado para não somar as porcentagens (+20% - 10% = +10%), isso sempre dá errado em juros compostos/sucessivos!"
+    },
+    {
+        disciplina: "Matemática",
+        assunto: "Regra de Três Simples",
+        enunciado: "(Fundatec) Uma máquina imprime 120 panfletos em 4 minutos. Mantendo o mesmo ritmo, quantos panfletos ela imprimirá em 10 minutos?",
+        alternativas: [
+            "200",
+            "240",
+            "300",
+            "360",
+            "400"
+        ],
+        correta: 2,
+        explicacao: "Correto! Grandezas diretamente proporcionais. Se em 4 min faz 120, em 1 min faz 30 (120/4). Logo, em 10 min fará 30 x 10 = 300 panfletos."
+    },
+    {
+        disciplina: "Raciocínio Lógico",
+        assunto: "Proposições Simples e Compostas",
+        enunciado: "(Fundatec) Assinale a alternativa que NÃO representa uma proposição lógica:",
+        alternativas: [
+            "Porto Alegre é a capital do Rio Grande do Sul.",
+            "A lua é feita de queijo.",
+            "5 + 3 = 8.",
+            "Que horas são?",
+            "O Brasil fica na Europa."
+        ],
+        correta: 3,
+        explicacao: "Correto! Frases interrogativas, exclamativas, imperativas ou sem verbo não são proposições lógicas, pois não podem ser julgadas como Verdadeiras ou Falsas. (A alternativa B e E são proposições, só que Falsas)."
+    },
+
+    // --- DIREITO ---
+    {
+        disciplina: "Direito",
+        assunto: "Direito Constitucional: Direitos Sociais",
+        enunciado: "(Fundatec) Conforme o Art. 6º da Constituição Federal, são Direitos Sociais, EXCETO:",
+        alternativas: [
+            "A educação.",
+            "A saúde.",
+            "O transporte.",
+            "A propriedade.",
+            "A moradia."
+        ],
+        correta: 3,
+        explicacao: "Correto! A propriedade é um Direito Individual (Art. 5º), não um Direito Social (Art. 6º). Mnemônico para os sociais: 'EDU MORA LÁ, SAÚDE TRABALHA ALI, ASSIS PROSSEGUE PRESO NO TRANSPORTE'."
+    },
+    {
+        disciplina: "Direito",
+        assunto: "Direito Constitucional: Organização Político-Administrativa",
+        enunciado: "(Fundatec) Segundo a Constituição Federal, a organização político-administrativa da República Federativa do Brasil compreende a União, os Estados, o Distrito Federal e os Municípios. É correto afirmar que:",
+        alternativas: [
+            "Apenas a União é autônoma.",
+            "Os Municípios são subordinados aos Estados.",
+            "Todos são autônomos, nos termos da Constituição.",
+            "O Distrito Federal não possui autonomia, sendo subordinado à União.",
+            "Os Estados são soberanos em relação aos Municípios."
+        ],
+        correta: 2,
+        explicacao: "Correto! O Art. 18 da CF/88 dita que a União, os Estados, o DF e os Municípios são AUTÔNOMOS. Ninguém é subordinado a ninguém, e a 'soberania' pertence apenas à República Federativa do Brasil (o país como um todo)."
+    },
+
+    // --- INFORMÁTICA ---
+    {
+        disciplina: "Informática",
+        assunto: "Windows",
+        enunciado: "(Fundatec) No sistema operacional Windows 10 (configuração padrão em português), o atalho de teclado utilizado para bloquear o computador instantaneamente é:",
+        alternativas: [
+            "Ctrl + L",
+            "Windows + L",
+            "Alt + L",
+            "Shift + L",
+            "Windows + B"
+        ],
+        correta: 1,
+        explicacao: "Correto! O atalho Tecla do Windows + L serve para bloquear a tela (L vem de 'Lock', trancar em inglês). É muito cobrado em provas da Fundatec."
+    },
+    {
+        disciplina: "Informática",
+        assunto: "Navegadores de Internet",
+        enunciado: "(Fundatec) No navegador Google Chrome, o atalho Ctrl + Shift + N é utilizado para:",
+        alternativas: [
+            "Abrir uma nova aba normal.",
+            "Fechar a aba atual.",
+            "Abrir a janela de downloads.",
+            "Abrir uma janela de navegação anônima.",
+            "Imprimir a página atual."
+        ],
+        correta: 3,
+        explicacao: "Correto! Ctrl + Shift + N abre a navegação anônima (Incognito). Para nova aba normal seria Ctrl + T; para fechar aba, Ctrl + W; para downloads, Ctrl + J; para imprimir, Ctrl + P."
+    },
+    // --- DIREITO PENAL E LEGISLAÇÃO ESPECIAL (A PARTIR DO LINK) ---
+    {
+        disciplina: "Direito",
+        assunto: "Direito Penal: Consumação e Arrependimento Posterior",
+        enunciado: "(Fundatec) José compareceu ao setor de atendimento à população... Para preenchimento de um formulário, era cedido um computador portátil. Ao perceber que o computador estava desprendido, José colocou-o em uma mochila e subtraiu-o. Ao chegar em casa, contou para sua esposa, que o motivou a devolvê-lo, o que ele efetivamente fez no dia seguinte. Contudo, o fato já havia sido constatado e registrado na delegacia. Diante da devolução do computador, é correto afirmar que:",
+        alternativas: [
+            "Ocorreu a desistência voluntária, não podendo José responder por furto.",
+            "Foi consumado o furto.",
+            "É caso de arrependimento eficaz, podendo, em caso de condenação, ser reduzida pela metade sua pena.",
+            "Será extinta a punibilidade em razão do arrependimento eficaz.",
+            "José responderá por tentativa de furto em razão da impropriedade absoluta do objeto."
+        ],
+        correta: 1,
+        explicacao: "Correto! O STJ adota a teoria da 'Amotio' ou 'Apprehensio': o furto se consuma no momento em que ocorre a inversão da posse, mesmo que por curto espaço de tempo. Como ele levou o computador para casa, o crime foi consumado. A devolução no dia seguinte configura 'Arrependimento Posterior' (Art. 16 do CP), que serve apenas para reduzir a pena de 1 a 2/3, mas não apaga a consumação do crime."
+    },
+    {
+        disciplina: "Direito",
+        assunto: "Direito Penal: Lei de Drogas e Reincidência",
+        enunciado: "(Fundatec) Murilo foi condenado pelo crime do artigo 28 da Lei nº 11.343/2006 (posse para consumo pessoal) em 10 de outubro de 2020 e teve sua pena extinta em 10 de outubro de 2021. Em 10 de outubro de 2025, foi condenado pelo crime do artigo 33 da mesma lei (tráfico), e o juiz aumentou a pena e fixou o regime fechado em razão da reincidência. A conduta do magistrado foi:",
+        alternativas: [
+            "Equivocada, pois Murilo é primário, uma vez que passado o período depurador.",
+            "Acertada, uma vez que o período depurador ainda não foi atingido.",
+            "Equivocada, pois Murilo é primário, uma vez que condenação com trânsito em julgado pelo artigo 28 da Lei de Drogas não gera reincidência.",
+            "Acertada, pois Murilo é reincidente, uma vez que condenação com trânsito em julgado pelo artigo 28 da Lei de Drogas gera reincidência.",
+            "Equivocada, pois o artigo 28 da Lei de Drogas não é mais crime e esse entendimento deve retroagir."
+        ],
+        correta: 2,
+        explicacao: "Correto! Segundo a jurisprudência pacificada do STJ, a condenação anterior pelo crime do Art. 28 da Lei de Drogas (posse para uso próprio) NÃO gera reincidência."
+    },
+    {
+        disciplina: "Direito",
+        assunto: "Legislação Especial: Lei Maria da Penha",
+        enunciado: "(Fundatec) O artigo 147 do Código Penal (CP) prevê, para o crime de ameaça, pena de um a seis meses ou multa. Em uma discussão no âmbito doméstico, José ameaçou sua esposa dizendo que iria matá-la. Ao final do processo, ele foi condenado ao pagamento de uma multa de quatro salários mínimos. Nesse sentido, é correto afirmar que a condenação está:",
+        alternativas: [
+            "De acordo com a Lei Maria da Penha e em desacordo com a jurisprudência do STJ.",
+            "De acordo com a Lei Maria da Penha e com a jurisprudência do STJ.",
+            "Em desacordo com a Lei Maria da Penha e de acordo com a jurisprudência do STJ.",
+            "Em desacordo com a Lei Maria da Penha e com a jurisprudência do STJ.",
+            "De acordo com a Lei Maria da Penha e com a jurisprudência do STF."
+        ],
+        correta: 3,
+        explicacao: "Correto! A condenação é ilegal. O Art. 17 da Lei Maria da Penha proíbe expressamente a aplicação de prestação pecuniária isolada ou substituição por multa nos crimes de violência doméstica contra a mulher. O STJ também proíbe."
+    },
+    {
+        disciplina: "Direito",
+        assunto: "Direito Penal: Crimes Contra a Liberdade Pessoal",
+        enunciado: "(Fundatec) Sobre o crime de redução à condição análoga à de escravo (art. 149, CP), analise as assertivas a seguir: I. A efetiva restrição de liberdade das vítimas é prescindível para a configuração do crime de redução à condição análoga à de escravo. II. O art. 149 do CP prevê outras condutas que podem ofender o bem jurídico tutelado, entre elas, submeter o sujeito passivo do delito a condições degradantes de trabalho. III. A pena desse crime é aumentada de metade se o crime for cometido contra criança ou adolescente. Assinale a alternativa correta.",
+        alternativas: [
+            "Todas as assertivas estão corretas.",
+            "Todas as assertivas estão incorretas.",
+            "Apenas as assertivas I e II estão corretas.",
+            "Apenas as assertivas I e III estão corretas.",
+            "Apenas as assertivas II e III estão corretas."
+        ],
+        correta: 0,
+        explicacao: "Correto! Todas estão certas. I: 'Prescindível' significa dispensável (não precisa ficar trancado). II: O crime abrange jornadas exaustivas e condições degradantes. III: Há aumento de metade se a vítima for criança ou adolescente."
+    },
+    {
+        disciplina: "Direito",
+        assunto: "Direito Penal: Excludentes de Ilicitude",
+        enunciado: "(Fundatec) Quanto ao excesso do agente na utilização das excludentes de ilicitude, é correto afirmar que:",
+        alternativas: [
+            "O agente, em qualquer das hipóteses de exclusão da ilicitude, responderá pelo excesso doloso ou culposo.",
+            "O agente, em qualquer das hipóteses de exclusão da ilicitude, responderá pelo excesso quando doloso.",
+            "O agente, em qualquer das hipóteses de exclusão da ilicitude, responderá pelo excesso quando culposo.",
+            "O agente, apenas em caso de legítima defesa, responderá pelo excesso culposo.",
+            "O agente, apenas em caso de legítima defesa, responderá pelo excesso doloso ou culposo."
+        ],
+        correta: 0,
+        explicacao: "Correto! Parágrafo único do Art. 23 do Código Penal: o agente, em QUALQUER das causas de excludente (legítima defesa, estado de necessidade, etc), sempre responderá pelo excesso, seja doloso ou culposo."
+    },
+    {
+        disciplina: "Direito",
+        assunto: "Direito Penal: Medidas de Segurança",
+        enunciado: "(Fundatec) Em relação ao tempo de duração máxima da medida de segurança, qual alternativa aponta corretamente entendimento sumulado do STJ sobre o tema?",
+        alternativas: [
+            "O tempo de duração da medida de segurança não deve ultrapassar o limite máximo da pena abstratamente cominada ao delito praticado.",
+            "O tempo de duração da medida de segurança não deve ultrapassar o limite máximo de 30 anos.",
+            "O tempo de duração da medida de segurança não deve ultrapassar o limite máximo da pena concretamente cominada ao delito praticado.",
+            "O tempo de duração da medida de segurança não deve ultrapassar o limite máximo de 40 anos.",
+            "O tempo de duração da medida de segurança não deve ultrapassar o limite máximo de 1 ano."
+        ],
+        correta: 0,
+        explicacao: "Correto! Súmula 527 do STJ: O tempo de duração da medida de segurança não deve ultrapassar o limite máximo da pena abstratamente cominada ao delito."
+    },
+    {
+        disciplina: "Direito",
+        assunto: "Legislação Especial: Lei de Drogas",
+        enunciado: "(Fundatec) Em relação à possibilidade de aplicação da causa de diminuição prevista no parágrafo quarto do artigo 33 da Lei de Drogas (tráfico privilegiado), assinale a alternativa que converge com o entendimento dos Tribunais Superiores.",
+        alternativas: [
+            "Apesar de investigações criminais em curso serem insuficientes para o afastamento do tráfico privilegiado, ações penais em curso, assim como registro de atos infracionais, são suficientes para afastar a causa de diminuição.",
+            "Apesar de investigações criminais e ações penais em curso serem insuficientes para o afastamento do tráfico privilegiado, o registro de atos infracionais é suficiente para afastar a causa de diminuição.",
+            "Apesar de investigações criminais em curso e registro de atos infracionais serem insuficientes para o afastamento do tráfico privilegiado, ações penais em curso são suficientes para afastar a causa de diminuição.",
+            "Apesar de ações penais em curso serem insuficientes para o afastamento do tráfico privilegiado, investigações policiais em curso, assim como registro de atos infracionais, são suficientes para afastar a causa de diminuição.",
+            "Tanto a existência de investigações ou ações penais em curso quanto o registro de atos infracionais são insuficientes, por si só, para afastar o tráfico privilegiado."
+        ],
+        correta: 4,
+        explicacao: "Correto! Segundo o STF (Tema 1.139) e o STJ, a mera existência de inquéritos, ações penais em curso ou atos infracionais (quando menor), não são suficientes, por si sós, para afastar o tráfico privilegiado."
+    },
+    {
+        disciplina: "Direito",
+        assunto: "Legislação Especial: Lei de Execução Penal (LEP)",
+        enunciado: "(Fundatec) A Lei nº 13.769/2018 incluiu o § 3º no art. 112 da Lei de Execução Penal (LEP), prevendo progressão de regime especial no caso de mulher gestante, ou mãe, ou responsável por crianças, ou pessoas com deficiência. Essa progressão de regime diferenciada tem como requisitos, entre outros:",
+        alternativas: [
+            "Ter cumprido ao menos 1/8 da pena no regime anterior e não ter integrado organização criminosa.",
+            "Ter cumprido ao menos 1/8 da pena no regime anterior e não ter integrado associação criminosa.",
+            "Ter cumprido ao menos 1/6 da pena no regime anterior e não ter integrado organização criminosa.",
+            "Ter cumprido ao menos 1/6 da pena no regime anterior e não ter integrado associação criminosa.",
+            "Ter cumprido ao menos 1/8 da pena no regime anterior e ser primária, independentemente do bom comportamento carcerário."
+        ],
+        correta: 0,
+        explicacao: "Correto! O Art. 112, § 3º da LEP exige cumprimento de 1/8 da pena e não integrar organização criminosa (não confundir com associação criminosa), além de outros requisitos como primariedade e bom comportamento."
+    },
+    {
+        disciplina: "Direito",
+        assunto: "Legislação Especial: Lei de Execução Penal (LEP)",
+        enunciado: "(Fundatec) Sobre o trabalho do condenado, analise as assertivas abaixo: I. O trabalho do preso não está sujeito ao regime da Consolidação das Leis do Trabalho. II. O trabalho do preso será remunerado, mediante prévia tabela, não podendo ser inferior a um salário mínimo. III. As tarefas executadas como prestação de serviço à comunidade não serão remuneradas. Quais estão corretas?",
+        alternativas: [
+            "Apenas III.",
+            "Apenas I e II.",
+            "Apenas I e III.",
+            "Apenas II e III.",
+            "I, II e III."
+        ],
+        correta: 2,
+        explicacao: "Correto! Apenas I e III estão certas. O erro da assertiva II é dizer que a remuneração não pode ser inferior a um salário mínimo. A LEP diz (Art. 29) que não pode ser inferior a 3/4 do salário mínimo."
+    },
+    {
+        disciplina: "Direito",
+        assunto: "Legislação Especial: Lei de Execução Penal (LEP)",
+        enunciado: "(Fundatec) Sobre o instituto da remição pelo estudo, assinale a alternativa que aponta, integral e corretamente, o que dispõe a Lei de Execução Penal (Lei nº 7.210/1984).",
+        alternativas: [
+            "A remição se dá à razão de 1 dia a cada 12 horas de frequência escolar divididas, no mínimo, em 3 dias. Pode ser presencial ou EAD. O tempo a remir será acrescido de 1/4 no caso de conclusão.",
+            "A remição se dá à razão de 1 dia a cada 12 horas de frequência escolar divididas, no máximo, em 3 dias. Pode ser presencial ou EAD. O tempo a remir será acrescido de 1/4 no caso de conclusão.",
+            "A remição se dá à razão de 1 dia a cada 12 horas de frequência escolar divididas, no mínimo, em 3 dias. Deve ser presencial. O tempo a remir será acrescido de 1/3 no caso de conclusão.",
+            "A remição se dá à razão de 1 dia de pena a cada 12 horas de frequência escolar divididas, no mínimo, em 3 dias. As atividades de estudo poderão ser desenvolvidas de forma presencial ou por metodologia de ensino à distância. O tempo a remir em função das horas de estudo será acrescido de 1/3 no caso de conclusão do Ensino Fundamental, Médio ou Superior.",
+            "A remição se dá à razão de 1 dia a cada 12 horas de frequência escolar divididas, no máximo, em 3 dias. Pode ser presencial ou EAD. O tempo a remir será acrescido de 1/3 no caso de conclusão."
+        ],
+        correta: 3,
+        explicacao: "Correto! Art. 126 da LEP: 12 horas diluídas no MÍNIMO em 3 dias (para evitar sobrecarga). O EAD é aceito. O bônus de conclusão é de 1/3."
+    },
+
+    // --- PROVA DA SUSEPE/RS (EXTRAÍDAS DO ARQUIVO PDF) ---
+    {
+        disciplina: "Direito",
+        assunto: "Legislação Especial: Lei Maria da Penha",
+        enunciado: "(Fundatec - SUSEPE/RS 2022) De acordo com a Lei Maria da Penha, a inquirição de mulher em situação de violência doméstica e familiar ou de testemunha de violência doméstica, quando se tratar de crime contra a mulher, obedecerá às seguintes diretrizes: I. Salvaguarda da integridade física, psíquica e emocional da depoente. II. Garantia de proteção policial, quando necessário. III. Não revitimização da depoente, evitando sucessivas inquirições sobre o mesmo fato. Quais estão corretas?",
+        alternativas: [
+            "Apenas I.",
+            "Apenas II.",
+            "Apenas I e II.",
+            "Apenas I e III.",
+            "I, II e III."
+        ],
+        correta: 4,
+        explicacao: "Correto! As três diretrizes constam expressamente no Art. 10-A da Lei Maria da Penha, visando proteger a vítima de novos traumas (revitimização) durante o andamento do processo policial e judicial[cite: 1]."
+    },
+    {
+        disciplina: "Direito",
+        assunto: "Legislação Especial: Prisão Temporária",
+        enunciado: "(Fundatec - SUSEPE/RS 2022) Nos termos da Lei nº 7.960/1989, a prisão temporária será decretada pelo Juiz, em face da representação da autoridade policial ou de requerimento do Ministério Público, e terá o prazo de ________ dias, prorrogável por igual período em caso de extrema e comprovada necessidade. Assinale a alternativa que preenche corretamente a lacuna.",
+        alternativas: [
+            "5 (cinco)",
+            "10 (dez)",
+            "15 (quinze)",
+            "30 (trinta)",
+            "90 (noventa)"
+        ],
+        correta: 0,
+        explicacao: "Correto! Segundo o Art. 2º da Lei 7.960/1989, a prisão temporária comum dura 5 dias, prorrogáveis por mais 5[cite: 1]."
+    },
+    {
+        disciplina: "Raciocínio Lógico",
+        assunto: "Negação Lógica (Quantificadores)",
+        enunciado: "(Fundatec - SUSEPE/RS 2022) A negação da sentença 'Existe pelo menos um aluno de lógica que foi vacinado' é:",
+        alternativas: [
+            "Existe pelo menos um aluno de lógica que não foi vacinado.",
+            "Todos os alunos de lógica não foram vacinados.",
+            "Existe alguém que foi vacinado e é aluno de lógica.",
+            "Todos os alunos de lógica foram vacinados.",
+            "Todas as pessoas vacinadas são alunos de lógica."
+        ],
+        correta: 1,
+        explicacao: "Correto! Para negar o quantificador existencial ('Existe', 'Algum'), nós o trocamos pelo quantificador universal ('Todos' ou 'Nenhum') e negamos o verbo[cite: 1]."
+    },
+    {
+        disciplina: "Raciocínio Lógico",
+        assunto: "Leis de De Morgan",
+        enunciado: "(Fundatec - SUSEPE/RS 2022) A negação da sentença composta 'Artur fez a vacina da Covid e fez a vacina da gripe', de acordo com as Leis de De Morgan, é:",
+        alternativas: [
+            "Artur fez a vacina da Covid ou não fez a vacina da gripe.",
+            "Artur não fez a vacina da Covid ou não fez a vacina da gripe.",
+            "Artur não fez a vacina da Covid e não fez a vacina da gripe.",
+            "Artur não fez a vacina da Covid ou fez a vacina da gripe.",
+            "Artur não fez a vacina da Covid e fez a vacina da gripe."
+        ],
+        correta: 1,
+        explicacao: "Correto! Pela 1ª Lei de De Morgan (Negação da Conjunção 'E'), nós negamos as duas partes da frase e trocamos o 'E' pelo 'OU'[cite: 1]."
+    },
+    {
+        disciplina: "Informática",
+        assunto: "Atalhos de Teclado",
+        enunciado: "(Fundatec - SUSEPE/RS 2022) Sobre o Microsoft Word 2016, assinale a alternativa que corresponde ao atalho de teclado utilizado para recortar um conteúdo selecionado para a área de transferência.",
+        alternativas: [
+            "Tab",
+            "Ctrl+C",
+            "Ctrl+X",
+            "Shift+End",
+            "Shift+Enter"
+        ],
+        correta: 2,
+        explicacao: "Correto! O atalho clássico para 'Recortar' no Windows (e no Word) é Ctrl + X[cite: 1]."
+    },
+    {
+        disciplina: "Informática",
+        assunto: "Navegadores de Internet",
+        enunciado: "(Fundatec - SUSEPE/RS 2022) Sobre o modo de navegação anônima do Google Chrome, é correto afirmar que:",
+        alternativas: [
+            "É executado em uma janela separada das janelas normais do navegador.",
+            "Não é permitido alternar entre janelas anônimas e normais do navegador.",
+            "O histórico de navegação é salvo.",
+            "O download de arquivos é bloqueado.",
+            "Não é possível adicionar sites à barra de favoritos."
+        ],
+        correta: 0,
+        explicacao: "Correto! A janela anônima abre de forma totalmente independente e isolada[cite: 1]."
+    },
+    {
+        disciplina: "Informática",
+        assunto: "Windows 10",
+        enunciado: "(Fundatec - SUSEPE/RS 2022) No Microsoft Windows 10, não é permitido o uso de alguns caracteres em nomes de arquivos e pastas. Assinale a alternativa que apresenta um nome de arquivo inválido no Microsoft Windows 10.",
+        alternativas: [
+            "programa_de_informática.docx",
+            "praia ou serra?.pdf",
+            "#cronograma do projeto.xlsx",
+            "lista-mercado.txt",
+            "controle(1).exe"
+        ],
+        correta: 1,
+        explicacao: "Correto! O Windows não permite o caractere de interrogação (?) em nomes de arquivos[cite: 1]."
+    },
+    {
+        disciplina: "Informática",
+        assunto: "Excel 2016",
+        enunciado: "(Fundatec - SUSEPE/RS 2022) Um ________ do Microsoft Excel 2016 é um pequeno gráfico, posicionado em uma única célula, que fornece uma representação visual de dados.",
+        alternativas: [
+            "gráfico dinâmico",
+            "gráfico SmartArt",
+            "minigráfico",
+            "mapa 3D",
+            "símbolo"
+        ],
+        correta: 2,
+        explicacao: "Correto! Os minigráficos (sparklines) são gráficos minúsculos que cabem dentro de uma única célula do Excel[cite: 1]."
+    },
+    {
+        disciplina: "Informática",
+        assunto: "Excel 2016 (Fórmulas)",
+        enunciado: "(Fundatec - SUSEPE/RS 2022) Assinale a alternativa cuja fórmula pode ser utilizada na célula C2 para exibir o maior número entre os valores das células A2 e B2.",
+        alternativas: [
+            "=SE(A2<B2;B2,A2)",
+            "SE(A2>B2;A2;B2)",
+            "=SE(A2<B2;B2:A2)",
+            "=SE(A2>B2;A2;B2)",
+            "=SE(A2>B2;A2:B2)"
+        ],
+        correta: 3,
+        explicacao: "Correto! A sintaxe correta da função SE exige o sinal de igual no início e ponto e vírgula para separar os argumentos[cite: 1]."
+    },
+    {
+        disciplina: "Informática",
+        assunto: "Gmail",
+        enunciado: "(Fundatec - SUSEPE/RS 2022) É possível configurar, no Gmail, um tempo determinado para cancelar o envio de uma mensagem de e-mail. Quais as opções disponíveis no campo 'Período de cancelamento de envio' da tela de Configurações do Gmail?",
+        alternativas: [
+            "5, 10, 20 ou 30 segundos.",
+            "5, 10, 20 ou 30 minutos.",
+            "1, 2, 5 ou 10 minutos.",
+            "1, 2, 3, 4 ou 5 horas.",
+            "1, 2, 3, 4 ou 5 segundos."
+        ],
+        correta: 0,
+        explicacao: "Correto! O Gmail permite cancelar o envio configurando opções curtas de 5, 10, 20 ou 30 segundos[cite: 1]."
+    },
+    {
+        disciplina: "Direito",
+        assunto: "Direitos Humanos",
+        enunciado: "(Fundatec - SUSEPE/RS 2022) A Convenção Americana sobre Direitos Humanos, Pacto de São José da Costa Rica, determina que não se deve impor a pena de morte à pessoa que, no momento da perpetração do delito, for menor de ________ anos, ou maior de ________ anos, nem aplicá-la à mulher em estado de gravidez.",
+        alternativas: [
+            "18 (dezoito) - 60 (sessenta)",
+            "18 (dezoito) - 70 (setenta)",
+            "16 (dezesseis) - 60 (sessenta)",
+            "16 (dezesseis) - 70 (setenta)",
+            "21 (vinte e um) - 70 (setenta)"
+        ],
+        correta: 1,
+        explicacao: "Correto! O Pacto de San José da Costa Rica dita que a pena de morte não se aplica a menores de 18, maiores de 70 ou grávidas[cite: 1]."
+    },
+    {
+        disciplina: "Direito",
+        assunto: "Estatuto da Criança e do Adolescente (ECA)",
+        enunciado: "(Fundatec - SUSEPE/RS 2022) Em relação à Lei nº 8.069/1990, que dispõe sobre o Estatuto da Criança e do Adolescente, assinale a alternativa correta.",
+        alternativas: [
+            "Nenhuma criança ou adolescente menor de 15 anos poderá viajar para fora da comarca desacompanhado.",
+            "É proibida a hospedagem de criança ou adolescente em hotel, salvo se autorizado ou acompanhado pelos pais.",
+            "Sem autorização do Conselho Tutelar, nenhuma criança sairá do país com estrangeiro.",
+            "A internação, antes da sentença, pode ser determinada pelo prazo máximo de quarenta dias.",
+            "Considera-se ato infracional a conduta descrita como crime, contravenção ou infração disciplinar."
+        ],
+        correta: 1,
+        explicacao: "Correto! É expressamente proibida a hospedagem de criança ou adolescente em hotéis e similares, salvo se expressamente autorizado ou acompanhado pelos responsáveis legais[cite: 1]."
+    },
+    {
+        disciplina: "Direito",
+        assunto: "Lei Maria da Penha",
+        enunciado: "(Fundatec - SUSEPE/RS 2022) Relativamente à Lei Maria da Penha, recebido o expediente com o pedido de medida protetiva de urgência, requerido pela ofendida, caberá ao juiz, no prazo de ________ horas, conhecer do expediente e do pedido e decidir sobre as medidas protetivas de urgência.",
+        alternativas: [
+            "12 (doze)",
+            "18 (dezoito)",
+            "24 (vinte e quatro)",
+            "36 (trinta e seis)",
+            "48 (quarenta e oito)"
+        ],
+        correta: 4,
+        explicacao: "Correto! O juiz tem o prazo de 48 horas para conhecer do expediente e decidir sobre o pedido de medida protetiva[cite: 1]."
+    },
+    {
+        disciplina: "Direito",
+        assunto: "Estatuto do Desarmamento",
+        enunciado: "(Fundatec - SUSEPE/RS 2022) De acordo com a Lei nº 10.826/2003 é vedado ao menor de ________ anos adquirir arma de fogo, ressalvados os casos previstos no Estatuto do Desarmamento.",
+        alternativas: [
+            "18 (dezoito)",
+            "20 (vinte)",
+            "25 (vinte e cinco)",
+            "30 (trinta)",
+            "35 (trinta e cinco)"
+        ],
+        correta: 2,
+        explicacao: "Correto! O Estatuto do Desarmamento estabelece que é vedado ao menor de 25 (vinte e cinco) anos adquirir arma de fogo[cite: 1]."
+    },
+    {
+        disciplina: "Conhecimentos Gerais",
+        assunto: "Atualidades e Cultura",
+        enunciado: "(Fundatec - SUSEPE/RS 2022) Em 2021, quais artistas foram eleitos para a Academia Brasileira de Letras (ABL)?",
+        alternativas: [
+            "Chico Buarque e Caetano Veloso.",
+            "Gilberto Gil e Fernanda Montenegro.",
+            "Gilberto Gil e Chico Buarque.",
+            "Fernanda Montenegro e Caetano Veloso.",
+            "Caetano Veloso e Maria Bethânia."
+        ],
+        correta: 1,
+        explicacao: "Correto! Gilberto Gil e Fernanda Montenegro foram imortalizados na ABL no ano de 2021[cite: 1]."
+    },
+    {
+        disciplina: "Conhecimentos Gerais",
+        assunto: "Geografia e Atualidades",
+        enunciado: "(Fundatec - SUSEPE/RS 2022) Leia a notícia: 'Geólogos explicam desabamento de cânion em Capitólio e veem Brasil atrasado em avaliações de segurança de áreas turísticas'. O acidente no município de Capitólio, descrito na manchete, está localizado em que estado brasileiro?",
+        alternativas: [
+            "Paraná.",
+            "Santa Catarina.",
+            "São Paulo.",
+            "Minas Gerais.",
+            "Espírito Santo."
+        ],
+        correta: 3,
+        explicacao: "Correto! O município de Capitólio, famoso por seus cânions, fica localizado no estado de Minas Gerais[cite: 1]."
+    },
+    {
+        disciplina: "Conhecimentos Gerais",
+        assunto: "Datas Comemorativas",
+        enunciado: "(Fundatec - SUSEPE/RS 2022) Setembro Amarelo é um mês dedicado à prevenção do(a):",
+        alternativas: [
+            "Câncer de pele.",
+            "Diabetes.",
+            "Suicídio.",
+            "Abandono escolar.",
+            "Obesidade."
+        ],
+        correta: 2,
+        explicacao: "Correto! O Setembro Amarelo é a campanha dedicada à conscientização e prevenção do suicídio[cite: 1]."
+    },
+    {
+        disciplina: "Raciocínio Lógico",
+        assunto: "Tautologia",
+        enunciado: "(Fundatec - SUSEPE/RS 2022) Qual das alternativas apresenta uma afirmação logicamente verdadeira?",
+        alternativas: [
+            "A sentença composta P -> ~Q representa uma tautologia.",
+            "A sentença composta P -> ~Q representa uma contradição.",
+            "A sentença composta ~Q -> P representa uma tautologia.",
+            "A sentença composta (P -> ~Q) v (~Q -> P) representa uma contingência.",
+            "A sentença composta (P -> ~Q) v (~Q -> P) representa uma tautologia."
+        ],
+        correta: 4,
+        explicacao: "Correto! Uma proposição que é sempre verdadeira, independente do valor de suas partes, é classificada como uma Tautologia[cite: 1]."
+    },
+    {
+        disciplina: "Raciocínio Lógico",
+        assunto: "Equivalência Lógica",
+        enunciado: "(Fundatec - SUSEPE/RS 2022) De acordo com a equivalência lógica da condicional, que indica que a condicional p -> q é equivalente a ~p v q, podemos afirmar que a sentença 'Se Pedro tem olhos azuis, então o filho de Pedro tem olhos azuis' é equivalente a:",
+        alternativas: [
+            "Se Pedro não tem olhos azuis, então o filho de Pedro tem olhos azuis.",
+            "Se Pedro tem olhos azuis, então o filho de Pedro não tem olhos azuis.",
+            "Pedro não tem olhos azuis ou o filho de Pedro tem olhos azuis.",
+            "Pedro não tem olhos azuis e o filho de Pedro não tem olhos azuis.",
+            "Pedro não tem olhos azuis se, e somente se, o filho de Pedro tem olhos azuis."
+        ],
+        correta: 2,
+        explicacao: "Correto! Usando a regra de equivalência, negamos a primeira parte ('Pedro NÃO tem olhos azuis'), trocamos o 'Se... Então' pelo 'OU', e mantemos a segunda parte igual[cite: 1]."
+    },
+    {
+        disciplina: "Raciocínio Lógico",
+        assunto: "Valor Lógico das Proposições",
+        enunciado: "(Fundatec - SUSEPE/RS 2022) Sabendo que a sentença condicional 'Se Pedro é aluno da turma B, então Pedro está aprovado' possui valor lógico falso, podemos afirmar que é verdadeira a sentença:",
+        alternativas: [
+            "Pedro está aprovado.",
+            "Pedro é aluno da turma B e Pedro está aprovado.",
+            "Pedro é aluno da turma B.",
+            "Pedro não é aluno da turma B.",
+            "Pedro não é aluno da turma B ou Pedro está aprovado."
+        ],
+        correta: 2,
+        explicacao: "Correto! Uma condicional (Se P, então Q) só resulta em Falso quando a primeira parte é Verdadeira e a segunda é Falsa. Logo, 'Pedro é aluno da turma B' é obrigatoriamente uma afirmação Verdadeira[cite: 1]."
+    },
+    // --- INFORMÁTICA ---
+    {
+        disciplina: "Informática",
+        assunto: "Windows 10: Gerenciador de Tarefas",
+        enunciado: "(Simulado PPRS) No Gerenciador de Tarefas do Windows 10, qual aba permite ao usuário visualizar, de forma detalhada e por processo individual, o consumo de CPU, memória, disco e rede, bem como encerrar diretamente processos em execução, quando necessário?",
+        alternativas: [
+            "Processos.",
+            "Inicializar.",
+            "Usuários.",
+            "Desempenho.",
+            "Histórico de aplicativos."
+        ],
+        correta: 0,
+        explicacao: "Correto! A aba 'Processos' exibe todos os aplicativos e tarefas em segundo plano rodando no momento, mostrando as colunas de consumo (CPU, Memória, Disco, Rede) e permitindo forçar o encerramento ('Finalizar Tarefa')."
+    },
+    {
+        disciplina: "Informática",
+        assunto: "Windows 10: Painel de Controle",
+        enunciado: "(Simulado PPRS) Considerando o Windows 10, são opções encontradas no Painel de Controle: I. Desinstalar um programa. II. Exibir impressoras e dispositivos. III. Alterar formatos de data, hora ou número. Quais estão corretas?",
+        alternativas: [
+            "Apenas I.",
+            "Apenas II.",
+            "Apenas III.",
+            "Apenas I e II.",
+            "I, II e III."
+        ],
+        correta: 4,
+        explicacao: "Correto! Todas as três opções são configurações clássicas que permanecem no Painel de Controle tradicional do Windows 10 (nas seções 'Programas', 'Hardware e Sons' e 'Relógio e Região')."
+    },
+    {
+        disciplina: "Informática",
+        assunto: "Windows 10: Bibliotecas",
+        enunciado: "(Simulado PPRS) Considere um recurso disponível no Microsoft Windows 10 que permite que um usuário, em uma visão centralizada, visualize e organize arquivos que estão fisicamente armazenados em pastas diferentes do seu computador. Qual é esse recurso?",
+        alternativas: [
+            "Biblioteca.",
+            "Repositório.",
+            "Pasta única.",
+            "Banco de dados."
+        ],
+        correta: 0,
+        explicacao: "Correto! O recurso 'Bibliotecas' permite agregar arquivos de diferentes locais (ex: várias pastas de imagens ou documentos espalhadas pelo PC) em uma única visualização, sem precisar mover os arquivos do lugar original."
+    },
+    {
+        disciplina: "Informática",
+        assunto: "Microsoft Word",
+        enunciado: "(Simulado PPRS) Na guia Página Inicial do Microsoft Word 2016, é possível utilizar as seguintes funções, EXCETO:",
+        alternativas: [
+            "Inserir cabeçalho e rodapé no documento.",
+            "Alterar o tipo e o tamanho da fonte do texto.",
+            "Centralizar e justificar um parágrafo.",
+            "Aplicar estilos rápidos de formatação ao texto.",
+            "Localizar e substituir palavras no documento."
+        ],
+        correta: 0,
+        explicacao: "Correto! As ferramentas de formatação de fonte, parágrafo, estilos e edição ficam na aba 'Página Inicial'. Já a opção 'Cabeçalho e Rodapé' fica na aba 'Inserir'."
+    },
+    {
+        disciplina: "Informática",
+        assunto: "Microsoft Excel",
+        enunciado: "(Simulado PPRS) Antes de imprimir uma planilha no Excel 2016, um usuário deseja ajustar margens, orientação da página e tamanho do papel. Essas configurações devem ser realizadas em qual guia?",
+        alternativas: [
+            "Página Inicial.",
+            "Layout da Página.",
+            "Inserir.",
+            "Revisão.",
+            "Exibir."
+        ],
+        correta: 1,
+        explicacao: "Correto! Todas as configurações de dimensão e impressão, como Margens, Orientação (Retrato/Paisagem) e Tamanho do papel ficam na guia 'Layout da Página' (ou apenas 'Layout')."
+    },
+    {
+        disciplina: "Informática",
+        assunto: "Navegadores: Google Chrome",
+        enunciado: "(Simulado PPRS) Pedro utiliza o navegador Google Chrome. Nesse navegador, o comando Ctrl + W é utilizado para _______, enquanto para adicionar uma guia aberta aos favoritos é utilizado o comando _______.",
+        alternativas: [
+            "fechar a guia – Ctrl + D",
+            "abrir uma nova janela – Ctrl + F",
+            "selecionar todo o conteúdo da página – Ctrl + T",
+            "procurar um termo na página – Ctrl + J",
+            "abrir janela anônima – Ctrl + P"
+        ],
+        correta: 0,
+        explicacao: "Correto! Ctrl + W sempre fecha a aba/guia atual, enquanto Ctrl + D é o atalho universal para adicionar uma página aos favoritos (Bookmark)."
+    },
+    {
+        disciplina: "Informática",
+        assunto: "Navegadores: Microsoft Edge",
+        enunciado: "(Simulado PPRS) No navegador Microsoft Edge, versão atualizada para computador e em português, para abrir uma janela de navegação anônima, o usuário pode selecionar o ícone de Configurações e Mais e, em seguida, selecionar a opção:",
+        alternativas: [
+            "Abrir janela AllConfidential.",
+            "Nova aba anônima.",
+            "Janela secreta.",
+            "Nova janela InPrivate.",
+            "Navegação privada."
+        ],
+        correta: 3,
+        explicacao: "Correto! A navegação que não salva histórico ou cookies no Microsoft Edge recebe o nome comercial de 'InPrivate'."
+    },
+
+    // --- RACIOCÍNIO LÓGICO ---
+    {
+        disciplina: "Raciocínio Lógico",
+        assunto: "Conceito de Proposição",
+        enunciado: "(Simulado PPRS) Qual das proposições abaixo NÃO é uma declaração lógica?",
+        alternativas: [
+            "Nenhum gato voa.",
+            "8 – 4 = 3.",
+            "Algum político não é honesto.",
+            "3 + 4 = 7.",
+            "Tomara que chova!"
+        ],
+        correta: 4,
+        explicacao: "Correto! Proposições lógicas são frases afirmativas que podem ser julgadas como Verdadeiras ou Falsas. Frases exclamativas ('Tomara que chova!'), interrogativas ou imperativas não são proposições."
+    },
+    {
+        disciplina: "Raciocínio Lógico",
+        assunto: "Operadores Lógicos: Conjunção",
+        enunciado: "(Simulado PPRS) Considerando as proposições abaixo, assinale a alternativa que corretamente interpreta a operação p ∧ q. (p: Hoje é segunda-feira / q: Tenho aula de matemática).",
+        alternativas: [
+            "Hoje é segunda-feira ou tenho aula de matemática.",
+            "Tenho aula de matemática se, e somente se, hoje é segunda-feira.",
+            "Hoje não é segunda-feira e tenho aula de matemática.",
+            "Se hoje é segunda-feira, então tenho aula de matemática.",
+            "Hoje é segunda-feira e tenho aula de matemática."
+        ],
+        correta: 4,
+        explicacao: "Correto! O símbolo matemático '∧' (circunflexo) representa o conectivo 'E' (conjunção)."
+    },
+    {
+        disciplina: "Raciocínio Lógico",
+        assunto: "Valor Lógico",
+        enunciado: "(Simulado PPRS) Analise as proposições compostas abaixo e assinale aquela que tem resultado lógico final FALSO.",
+        alternativas: [
+            "Se 2 + 2 = 4, então 3 + 4 = 7.",
+            "O dobro de 5 é igual a 10, e o triplo de 3 é igual a 6.",
+            "4 + 1 = 5 ou 1 + 2 = 7.",
+            "O dobro de 10 é igual a 30 ou a metade de 20 é igual a 10.",
+            "Se 6 + 2 = 9, então 10 + 2 = 12."
+        ],
+        correta: 1,
+        explicacao: "Correto! A alternativa utiliza o conectivo 'E' (conjunção), que só é Verdadeiro se AMBAS as partes forem verdadeiras. Como o triplo de 3 não é 6 (falso), toda a afirmação desaba e se torna Falsa."
+    },
+
+    // --- DIREITO PENAL ---
+    {
+        disciplina: "Direito",
+        assunto: "Direito Penal: Penas Privativas de Liberdade",
+        enunciado: "(Simulado PPRS) A respeito das penas privativas de liberdade, conforme previsto no Código Penal, assinale a alternativa correta.",
+        alternativas: [
+            "A pena de reclusão deve ser cumprida em regime fechado ou semiaberto, vedado o regime aberto.",
+            "Ressalvadas as hipóteses de transferência a regime mais rigoroso, o condenado não reincidente, cuja pena seja superior a quatro anos e não exceda a oito, poderá, desde o princípio, cumpri-la em regime semiaberto.",
+            "A pena de detenção deve ser cumprida em regime fechado, vedado o regime semiaberto.",
+            "No regime aberto, a execução da pena ocorre em colônia agrícola, industrial ou estabelecimento similar."
+        ],
+        correta: 1,
+        explicacao: "Correto! É a letra exata do Art. 33, § 2º, 'b' do Código Penal. Penas maiores que 4 e até 8 anos, para réu primário, podem iniciar no regime semiaberto."
+    },
+    {
+        disciplina: "Direito",
+        assunto: "Direito Penal: Substituição de Penas",
+        enunciado: "(Simulado PPRS) Carlos, primário e de bons antecedentes, foi condenado à pena de 2 (dois) anos e 2 (dois) meses de reclusão, além de multa, por crime cometido sem violência ou grave ameaça à pessoa. Nesse caso, segundo o Código Penal:",
+        alternativas: [
+            "Carlos deverá iniciar o cumprimento da pena privativa de liberdade em regime fechado.",
+            "A pena de multa pode ser substituída por prestação de serviços à comunidade.",
+            "A pena de reclusão poderá ser substituída por duas restritivas de direitos.",
+            "Carlos deverá iniciar o cumprimento da pena de reclusão em colônia agrícola, industrial ou estabelecimento similar.",
+            "Carlos terá direito à suspensão condicional da pena."
+        ],
+        correta: 2,
+        explicacao: "Correto! Conforme o Art. 44 do CP, condenações não violentas até 4 anos de prisão (para réu não reincidente) podem ser substituídas por penas restritivas de direito. Como a condenação foi maior que 1 ano, ela é substituída por DUAS penas restritivas."
+    },
+    {
+        disciplina: "Direito",
+        assunto: "Direito Penal: Peculato",
+        enunciado: "(Simulado PPRS) Maria, servidora pública federal lotada em um instituto federal, em razão das facilidades proporcionadas pelo seu cargo, apropriou-se de vultosa quantia em dinheiro pertencente à referida autarquia, com a finalidade de adquirir um imóvel. A conduta de Maria é tipificada como:",
+        alternativas: [
+            "Prevaricação.",
+            "Peculato.",
+            "Abandono de função.",
+            "Concussão.",
+            "Violência arbitrária."
+        ],
+        correta: 1,
+        explicacao: "Correto! O Art. 312 do CP define o Peculato-Apropriação como a conduta do funcionário público que se apropria de dinheiro ou valor público de que tem a posse em razão do seu cargo."
+    },
+    {
+        disciplina: "Direito",
+        assunto: "Direito Penal: Crimes contra a Administração",
+        enunciado: "(Simulado PPRS) Sobre os crimes contra a Administração Pública, analise as assertivas abaixo: ( ) Receber, em razão da função, vantagem indevida, configura crime de corrupção passiva. ( ) O abandono de função só é punível quando resulta em prejuízo público. ( ) O funcionário público pode cometer concussão mesmo antes de assumir a função pública, desde que o faça em razão dela.",
+        alternativas: [
+            "V – V – F.",
+            "V – F – V.",
+            "F – V – V.",
+            "F – F – V.",
+            "F – F – F."
+        ],
+        correta: 1,
+        explicacao: "Correto! (V) O verbo 'receber' caracteriza corrupção passiva. (F) Abandono de função já é crime por si só; causar prejuízo serve apenas para aumentar a pena (qualificadora). (V) A concussão (exigir propina) pode ocorrer 'ainda que fora da função ou antes de assumi-la, mas em razão dela'."
+    },
+
+    // --- LEGISLAÇÃO ESPECIAL E DIREITO CONSTITUCIONAL ---
+    {
+        disciplina: "Direito",
+        assunto: "Direito Administrativo: Improbidade Administrativa",
+        enunciado: "(Simulado PPRS) Sobre as disposições gerais da Lei de Improbidade Administrativa (Lei nº 8.429/1992), com as atualizações, assinale a sequência correta: ( ) Admite-se improbidade na modalidade culposa se houver negligência grave. ( ) Divergência interpretativa baseada em jurisprudência configura improbidade se a tese for rejeitada depois. ( ) Estão sujeitos às sanções atos contra patrimônio de entidade privada que receba subvenção do ente público. ( ) O sistema é aplicado pelos princípios constitucionais do direito administrativo sancionador.",
+        alternativas: [
+            "V – F – F – V.",
+            "F – V – F – F.",
+            "V – F – V – F.",
+            "F – V – F – V.",
+            "F – F – V – V."
+        ],
+        correta: 4,
+        explicacao: "Correto! A reforma de 2021 BANIU a improbidade culposa (a primeira é falsa). A divergência de interpretação jurídica baseada em jurisprudência NÃO configura improbidade (a segunda é falsa). As duas últimas alternativas representam a literalidade atual da lei."
+    },
+    {
+        disciplina: "Direito",
+        assunto: "Direito Constitucional: Fundamentos",
+        enunciado: "(Simulado PPRS) Assinale a alternativa que NÃO apresenta um fundamento da República Federativa do Brasil, expressamente previsto na Constituição Federal.",
+        alternativas: [
+            "Soberania.",
+            "Concessão de asilo político.",
+            "Dignidade da pessoa humana.",
+            "Pluralismo político."
+        ],
+        correta: 1,
+        explicacao: "Correto! A Concessão de asilo político é um Princípio das Relações Internacionais (Art. 4º). Os Fundamentos do Brasil formam o mnemônico SO-CI-DI-VA-PLU (Soberania, Cidadania, Dignidade, Valores do Trabalho/Iniciativa e Pluralismo)."
+    },
+    {
+        disciplina: "Direito",
+        assunto: "Legislação Especial: Lei Maria da Penha",
+        enunciado: "(Simulado PPRS) Conforme a Lei Maria da Penha, assinale a alternativa correta quanto à tipificação da violência.",
+        alternativas: [
+            "A conduta que ofenda a integridade ou a saúde corporal da mulher é classificada como violência física.",
+            "Constrangimento, humilhação e vigilância constante são práticas entendidas como violência institucional.",
+            "O ato de subtração, destruição parcial ou total de objetos da mulher é classificado como violência moral.",
+            "A violência patrimonial é entendida como toda prática que cause dano emocional e diminuição da autoestima.",
+            "Impedir o uso de qualquer método contraceptivo caracteriza violência psicológica."
+        ],
+        correta: 0,
+        explicacao: "Correto! O Art. 7º da Lei Maria da Penha é literal: ofensa à integridade e saúde corporal = violência física. (Constrangimento é violência psicológica; destruição de objetos é violência patrimonial; impedir contraceptivo é violência sexual)."
+    },
+    {
+        disciplina: "Direito",
+        assunto: "Legislação Especial: Lei Maria da Penha (Procedimentos)",
+        enunciado: "(Simulado PPRS) A Lei Maria da Penha afirma que a violência doméstica constitui violação de direitos humanos (1ª parte). Em relação aos procedimentos, é vedada a aplicação de penas de cesta básica ou o pagamento isolado de multa (2ª parte). A competência dos Juizados não é de opção da ofendida, devendo ser obrigatoriamente o lugar do fato (3ª parte). Quais partes estão corretas?",
+        alternativas: [
+            "Apenas a 2ª parte.",
+            "Apenas a 3ª parte.",
+            "Apenas a 1ª e a 2ª partes.",
+            "Apenas a 1ª e a 3ª partes.",
+            "Todas as partes."
+        ],
+        correta: 2,
+        explicacao: "Correto! A terceira parte é falsa porque o Art. 15 da Lei expressamente garante que é OPÇÃO da ofendida escolher se o processo correrá no seu domicílio, no local do fato ou no domicílio do agressor."
+    },
+    // --- LÍNGUA PORTUGUESA ---
+    {
+        disciplina: "Língua Portuguesa",
+        assunto: "Ortografia",
+        enunciado: "(Simulado PPRS) Qual das palavras abaixo é escrita corretamente ao preencher a lacuna com a letra “z”?",
+        alternativas: [
+            "Bele__a.",
+            "Pe__ado.",
+            "Coi__a.",
+            "Ga__olina."
+        ],
+        correta: 0,
+        explicacao: "Correto! A palavra 'Beleza' deriva do adjetivo 'belo' + sufixo '-eza' (indicando qualidade ou estado), que é sempre escrito com 'Z'. As demais são escritas com 'S': Pesado, Coisa, Gasolina."
+    },
+    {
+        disciplina: "Língua Portuguesa",
+        assunto: "Separação Silábica",
+        enunciado: "(Simulado PPRS) Assinale a alternativa em que a palavra apresenta a correta separação silábica.",
+        alternativas: [
+            "Te-rra.",
+            "A-zu-l.",
+            "Fe-nô-me-no.",
+            "Ga-se-s."
+        ],
+        correta: 2,
+        explicacao: "Correto! 'Fe-nô-me-no' é uma palavra proparoxítona polissílaba separada corretamente. Erros nas outras: os dígrafos RR se separam (Ter-ra); consoantes sozinhas no final ficam na última sílaba (A-zul / Ga-ses)."
+    },
+    {
+        disciplina: "Língua Portuguesa",
+        assunto: "Colocação Pronominal",
+        enunciado: "(Simulado PPRS) Assinale a alternativa que apresenta a correta colocação do pronome átono, de acordo com a norma-padrão.",
+        alternativas: [
+            "Não se deve excluir o açúcar totalmente.",
+            "O açúcar que consome-se afeta o humor.",
+            "Sempre avaliou-se o efeito dos doces.",
+            "Nunca sinto-me ansiosa com a dieta.",
+            "Quando causam-nos mal, os doces devem ser evitados."
+        ],
+        correta: 0,
+        explicacao: "Correto! Palavras negativas (Não, Nunca, Jamais) são fortes 'ímãs' que atraem o pronome para antes do verbo (próclise obrigatória). Nas outras alternativas, pronomes relativos ('que'), advérbios ('sempre', 'nunca') e conjunções subordinativas ('quando') também exigiriam a próclise."
+    },
+    {
+        disciplina: "Língua Portuguesa",
+        assunto: "Colocação Pronominal",
+        enunciado: "(Simulado PPRS) Assinale a alternativa que apresenta o correto uso da ênclise obrigatória.",
+        alternativas: [
+            "Espero que se sintam confortáveis aqui.",
+            "Ninguém se lembrou de apagar as luzes.",
+            "Jamais entregaram-nos os documentos.",
+            "Se encontrar o caminho, avise-me imediatamente."
+        ],
+        correta: 3,
+        explicacao: "Correto! A regra de ouro da colocação pronominal diz que NUNCA se inicia uma oração com pronome oblíquo átono. Após a vírgula (início de uma nova oração), e com verbo no imperativo ('avise'), o uso da ênclise (depois do verbo) é obrigatório."
+    },
+
+    // --- DIREITO CONSTITUCIONAL ---
+    {
+        disciplina: "Direito",
+        assunto: "Direito Constitucional: Fundamentos da República",
+        enunciado: "(Simulado PPRS) Assinale a alternativa que NÃO apresenta um fundamento da República Federativa do Brasil.",
+        alternativas: [
+            "Soberania.",
+            "Concessão de asilo político.",
+            "Dignidade da pessoa humana.",
+            "Pluralismo político."
+        ],
+        correta: 1,
+        explicacao: "Correto! A 'concessão de asilo político' é um Princípio das Relações Internacionais (Art. 4º da CF), não um fundamento. Os fundamentos (Art. 1º) formam o famoso mnemônico SO-CI-DI-VA-PLU (Soberania, Cidadania, Dignidade, Valores sociais do trabalho/iniciativa e Pluralismo político)."
+    },
+    {
+        disciplina: "Direito",
+        assunto: "Direito Constitucional: Remédios Constitucionais",
+        enunciado: "(Simulado PPRS) Considerando as disposições da Constituição Federal, assinale a alternativa que indica corretamente o remédio constitucional em que há expressa previsão de gratuidade para sua utilização em qualquer situação.",
+        alternativas: [
+            "Habeas corpus.",
+            "Mandado de segurança.",
+            "Mandado de injunção.",
+            "Ação popular."
+        ],
+        correta: 0,
+        explicacao: "Correto! Segundo o Art. 5º, inciso LXXVII da Constituição, são totalmente gratuitos, para qualquer pessoa, o 'Habeas Corpus' e o 'Habeas Data'. (A ação popular é gratuita apenas se não houver comprovada má-fé do autor)."
+    },
+    {
+        disciplina: "Direito",
+        assunto: "Direito Constitucional: Direitos Sociais",
+        enunciado: "(Simulado PPRS) Assinale a alternativa que NÃO prevê um direito social previsto pelo art. 7º da Constituição Federal de forma literal.",
+        alternativas: [
+            "Seguro-desemprego, em caso de desemprego involuntário.",
+            "Repouso semanal remunerado, obrigatoriamente aos domingos.",
+            "Licença à gestante, sem prejuízo do emprego e do salário, com a duração de cento e vinte dias.",
+            "Aposentadoria."
+        ],
+        correta: 1,
+        explicacao: "Correto! A 'pegadinha' está na palavra 'obrigatoriamente'. A Constituição (Art. 7º, XV) diz que o repouso semanal remunerado é PREFERENCIALMENTE aos domingos, e não de forma obrigatória."
+    },
+    {
+        disciplina: "Direito",
+        assunto: "Direito Constitucional: Repartição de Competências",
+        enunciado: "(Simulado PPRS) No federalismo brasileiro, a repartição de competências constitui mecanismo essencial. Considerando o sistema de competências previsto na Constituição Federal de 1988, assinale a alternativa correta.",
+        alternativas: [
+            "As competências legislativas concorrentes permitem que a União estabeleça normas gerais, cabendo aos Estados exercer competência suplementar.",
+            "Nas competências concorrentes, a União pode legislar integralmente sobre a matéria, impedindo qualquer atuação legislativa dos Estados.",
+            "A superveniência de lei federal sobre normas gerais revoga automaticamente toda legislação estadual anterior sobre a mesma matéria.",
+            "Nas competências concorrentes, os Municípios podem editar normas gerais quando inexistir legislação federal."
+        ],
+        correta: 0,
+        explicacao: "Correto! Conforme o Art. 24, § 1º e § 2º da CF: na competência concorrente, a União faz o 'esqueleto' (normas gerais) e os Estados preenchem os detalhes (competência suplementar). A superveniência de lei federal não revoga, apenas 'suspende' a eficácia da lei estadual no que for contrário."
+    },
+
+    // --- DIREITO ADMINISTRATIVO E LEGISLAÇÕES ---
+    {
+        disciplina: "Direito",
+        assunto: "Direito Administrativo: Improbidade Administrativa",
+        enunciado: "(Simulado PPRS) Um servidor público utilizou-se de maquinário e de dois subordinados (em horário de expediente) para realizar a reforma de sua residência particular de veraneio. Restou comprovado o dolo. Com base na Lei nº 8.429/1992, a conduta descrita configura ato de improbidade administrativa que:",
+        alternativas: [
+            "atenta contra os princípios da Administração Pública.",
+            "configura contravenção penal.",
+            "configura mera irregularidade administrativa.",
+            "importa em enriquecimento ilícito.",
+            "constitui improbidade culposa."
+        ],
+        correta: 3,
+        explicacao: "Correto! Utilizar-se de veículos, máquinas, equipamentos ou trabalho de servidores públicos para obras e serviços particulares é infração expressamente descrita no Art. 9º, inciso IV, configurando enriquecimento ilícito do agente."
+    },
+    {
+        disciplina: "Direito",
+        assunto: "Direito Administrativo: Nova Lei de Licitações",
+        enunciado: "(Simulado PPRS) Com base nas definições contidas na Nova Lei de Licitações (Lei nº 14.133/2021), assinale a alternativa correta.",
+        alternativas: [
+            "Entende-se por bens e serviços comuns aqueles cujos padrões de desempenho e qualidade podem ser objetivamente definidos pelo edital, por meio de especificações usuais de mercado.",
+            "A definição legal de obra abrange as atividades de construção civil, desde que sejam de grande porte e acompanhadas de justificativa técnica.",
+            "Os serviços e fornecimentos contínuos caracterizam-se por atender demandas esporádicas e transitórias da Administração.",
+            "A comissão de contratação é formada por agentes públicos com atribuição de aplicar as penalidades previstas em lei."
+        ],
+        correta: 0,
+        explicacao: "Correto! Essa é a exata definição de 'Bens e Serviços Comuns' trazida pelo Art. 6º da Lei. São coisas fáceis de descrever e encontrar no mercado (como papel A4, canetas, serviço de limpeza, etc.), o que permite o uso da modalidade Pregão."
+    },
+    {
+        disciplina: "Direito",
+        assunto: "Direito Administrativo: Princípios Licitatórios",
+        enunciado: "(Simulado PPRS) Assinale a alternativa que NÃO apresenta um princípio expressamente previsto no artigo 5º da Lei de Licitações (Lei Federal nº 14.133/2021).",
+        alternativas: [
+            "Economicidade.",
+            "Igualdade.",
+            "Desenvolvimento nacional sustentável.",
+            "Improbidade administrativa."
+        ],
+        correta: 3,
+        explicacao: "Correto! Questão de atenção. A lei traz o princípio da PROBIDADE administrativa (honestidade, retidão). 'Improbidade' é justamente o ato corrupto ou desonesto."
+    },
+    {
+        disciplina: "Direito",
+        assunto: "Legislação Especial: Lei de Execução Penal (LEP)",
+        enunciado: "(Simulado PPRS) Em relação aos estabelecimentos penais, na forma disciplinada pela Lei nº 7.210/1984 (Lei de Execução Penal), assinale a alternativa correta.",
+        alternativas: [
+            "A cadeia pública será instalada próximo de centro urbano.",
+            "A Colônia Agrícola destina-se ao cumprimento da pena em regime semiaberto e da limitação de fim de semana.",
+            "O prédio da Casa do Albergado poderá situar-se em centro urbano, desde que contenha obstáculos físicos contra a fuga.",
+            "A penitenciária de homens pode ser construída em local afastado do centro urbano, à distância que não restrinja a visitação.",
+            "Será de cinco metros quadrados a área mínima de uma unidade celular."
+        ],
+        correta: 0,
+        explicacao: "Correto! A Cadeia Pública, que serve para custodiar os presos provisórios (aguardando julgamento), deve ficar próxima aos centros urbanos para facilitar o acesso à Justiça e aos advogados (Art. 104 da LEP). A unidade celular tem área mínima de 6m² (não 5m²)."
+    },
+    {
+        disciplina: "Direito",
+        assunto: "Legislação Especial: Estatuto da Igualdade Racial",
+        enunciado: "(Simulado PPRS) Considere o Estatuto da Igualdade Racial. Com base nesse documento, considera-se _________________________ toda distinção, exclusão, restrição ou preferência baseada em cor, raça, descendência ou origem étnica que tenha por objeto anular ou restringir direitos humanos e liberdades fundamentais. Assinale a alternativa que preenche a lacuna.",
+        alternativas: [
+            "desigualdade de gênero",
+            "ações de injúria étnica",
+            "discriminação racial",
+            "desigualdade social",
+            "difamação racial"
+        ],
+        correta: 2,
+        explicacao: "Correto! A distinção, exclusão, restrição ou preferência com o objetivo de anular ou prejudicar direitos baseada em raça é o exato conceito legal de 'Discriminação Racial' (Art. 1º, § 1º, inciso I da Lei 12.288/2010)."
+    },
+    
+    // --- DIREITO PENAL ---
+    {
+        disciplina: "Direito",
+        assunto: "Direito Penal: Crimes Contra a Administração",
+        enunciado: "(Simulado PPRS) Sobre os crimes contra a Administração Pública, analise as assertivas e assinale V ou F: ( ) Patrocinar interesse privado perante a Administração valendo-se da qualidade de funcionário define a advocacia administrativa. ( ) O funcionário que deixa, por indulgência, de responsabilizar subordinado comete prevaricação. ( ) Concussão é exigir para si ou para outrem, em razão da função, vantagem indevida.",
+        alternativas: [
+            "F – F – V.",
+            "F – V – F.",
+            "V – F – V.",
+            "V – F – F.",
+            "V – V – F."
+        ],
+        correta: 2,
+        explicacao: "Correto! (V) Patrocinar interesses privados é Advocacia Administrativa. (F) Deixar de punir subordinado por pena/dó ('indulgência') é Condescendência Criminosa, e não prevaricação. (V) O verbo da concussão é 'Exigir'."
+    },
+    // --- RACIOCÍNIO LÓGICO ---
+    {
+        disciplina: "Raciocínio Lógico",
+        assunto: "Sequências Numéricas",
+        enunciado: "(Simulado PPRS) Considerando a sequência numérica a seguir, qual será o próximo número? 12, 13, 16, 21, 28, 37, 48, 61, ...",
+        alternativas: [
+            "67.",
+            "70.",
+            "73.",
+            "76.",
+            "79."
+        ],
+        correta: 3,
+        explicacao: "Correto! A diferença entre os números vai aumentando seguindo a ordem dos números ímpares: +1 (dá 13), +3 (dá 16), +5 (dá 21), +7, +9, +11, +13 (61). O próximo salto lógico será de +15. Portanto, 61 + 15 = 76."
+    },
+    {
+        disciplina: "Raciocínio Lógico",
+        assunto: "Ordenação e Dedução Lógica",
+        enunciado: "(Simulado PPRS) Cinco pessoas, Ana, Bruno, Carlos, Daniela e Eduardo, estão sentadas em uma fila. Sabe-se que: Ana está à frente de Bruno. Carlos está atrás de Daniela. Bruno está à frente de Carlos. Com base nessas informações, é correto afirmar que:",
+        alternativas: [
+            "Ana está à frente de Carlos.",
+            "Carlos está à frente de Ana.",
+            "Ana está à frente de Daniela.",
+            "Daniela está à frente de Bruno.",
+            "Eduardo está entre Bruno e Carlos."
+        ],
+        correta: 0,
+        explicacao: "Correto! Por dedução simples: Se Ana está na frente do Bruno, e o Bruno está na frente do Carlos, obrigatoriamente a Ana está na frente do Carlos. A ordem relativa deles é: Ana > Bruno > Carlos. Não temos como ter certeza da posição de Daniela e Eduardo, mas a alternativa A é uma verdade absoluta."
+    },
+
+    // --- DIREITO E LEGISLAÇÃO ---
+    {
+        disciplina: "Direito",
+        assunto: "Estatuto da Criança e do Adolescente (ECA)",
+        enunciado: "(Simulado PPRS) Em conformidade com a LDBEN e o Estatuto da Criança e do Adolescente (ECA), ao identificar indícios de maus-tratos envolvendo um de seus alunos, qual deve ser a conduta do professor?",
+        alternativas: [
+            "Comunicar obrigatoriamente a suspeita ou confirmação ao Conselho Tutelar (ou via fluxo da escola), independentemente de provas materiais imediatas.",
+            "Aguardar a confirmação dos fatos por meio de perícia técnica ou laudo médico antes de realizar qualquer comunicação.",
+            "Comunicar o fato à direção da escola para que esta decida, a seu critério, a conveniência de acionar ou não os órgãos de proteção.",
+            "Apenas registrar em ata interna, sendo a comunicação ao Conselho Tutelar uma atribuição facultativa."
+        ],
+        correta: 0,
+        explicacao: "Correto! O Art. 56 do ECA e a LDB exigem a comunicação OBRIGATÓRIA dos casos de suspeita ou confirmação de maus-tratos ao Conselho Tutelar. Não é uma faculdade da escola, é um dever legal, e não se exige prova cabal para fazer a comunicação."
+    },
+    {
+        disciplina: "Direito",
+        assunto: "Estatuto da Criança e do Adolescente (ECA)",
+        enunciado: "(Simulado PPRS) Sobre o que prevê o ECA acerca da adoção, analise as assertivas e marque V ou F: ( ) O adotando deve contar com, no máximo, dezoito anos, salvo se adotado por pessoa com vínculos consanguíneos. ( ) A adoção será precedida de estágio de convivência. ( ) Atribui a condição de filho, desligando de qualquer vínculo com pais e parentes, salvo impedimentos matrimoniais. ( ) O adotado tem o direito de conhecer sua origem biológica a qualquer momento.",
+        alternativas: [
+            "F – V – V – F.",
+            "V – V – F – V.",
+            "V – F – V – F.",
+            "V – F – F – V.",
+            "F – F – V – V."
+        ],
+        correta: 0,
+        explicacao: "Correto! A primeira é Falsa porque a exceção para adotar maior de 18 anos é se ele já estava sob 'guarda ou tutela' dos adotantes, e não por vínculo consanguíneo. A última é Falsa porque o acesso irrestrito ao processo para conhecer a origem só é garantido 'após completar 18 anos' (antes disso, exige assistência jurídica/psicológica)."
+    },
+    {
+        disciplina: "Direito",
+        assunto: "Direito Constitucional: Direitos Fundamentais",
+        enunciado: "(Simulado PPRS) Maria escreveu textos anônimos criticando João, seu desafeto, motivo pelo qual João afirma que teve a sua vida privada violada por Maria. Considerando esse contexto e as disposições da Constituição Federal, assinale a alternativa correta.",
+        alternativas: [
+            "A Constituição não assegura indenização pelo dano moral decorrente de tal violação.",
+            "Não há qualquer equívoco na conduta de Maria, que pode livremente expressar seu pensamento.",
+            "Ainda que a Constituição assegure situações em que é permitido o anonimato, as críticas à vida privada não estão cobertas em tais exceções.",
+            "A conduta de Maria não está coberta pela Constituição, que veda o anonimato na livre manifestação do pensamento."
+        ],
+        correta: 3,
+        explicacao: "Correto! A Constituição Federal dita em seu Art. 5º, inciso IV: 'É livre a manifestação do pensamento, sendo VEDADO o anonimato'. Quem se expressa precisa assumir a autoria para responder por eventuais abusos e indenizações."
+    },
+    {
+        disciplina: "Direito",
+        assunto: "Direito Constitucional: Servidores Públicos",
+        enunciado: "(Simulado PPRS) Determinada lei estadual concedeu aumento remuneratório exclusivamente a servidores públicos ativos de uma carreira específica, sem estender o mesmo reajuste aos servidores já aposentados com fundamento nas regras constitucionais de paridade. Assinale a alternativa correta.",
+        alternativas: [
+            "A concessão de aumento apenas aos servidores ativos é sempre válida, pois a paridade entre ativos e inativos foi integralmente extinta.",
+            "Todo aumento concedido aos servidores ativos deve obrigatoriamente ser estendido aos aposentados e pensionistas.",
+            "A extensão do reajuste aos aposentados dependerá da regra de aposentadoria sob a qual o servidor se aposentou, podendo haver ou não direito à paridade.",
+            "A paridade entre ativos e inativos aplica-se apenas aos ocupantes de cargos em comissão."
+        ],
+        correta: 2,
+        explicacao: "Correto! As Reformas da Previdência acabaram com a regra geral de paridade. Hoje, o direito de o aposentado receber o mesmo aumento do servidor da ativa depende de ele ter ingressado no serviço público antes das reformas e cumprido as regras de transição específicas."
+    },
+    {
+        disciplina: "Direito",
+        assunto: "Direito Administrativo: Lei de Improbidade",
+        enunciado: "(Simulado PPRS) Considerando as disposições da Lei de Improbidade Administrativa, assinale a alternativa correta.",
+        alternativas: [
+            "O sucessor do sujeito que causar dano ao erário está sujeito à obrigação de repará-lo independentemente do valor da herança.",
+            "A perda patrimonial decorrente da atividade econômica sempre acarretará improbidade administrativa.",
+            "Na responsabilização da pessoa jurídica por ato de improbidade, não poderão ser considerados os efeitos sociais das sanções.",
+            "A sanção de perda dos bens ou valores acrescidos ilicitamente ao patrimônio só poderá ser executada após o trânsito em julgado da sentença condenatória."
+        ],
+        correta: 3,
+        explicacao: "Correto! Conforme o Art. 20 da LIA, a perda da função pública, a suspensão dos direitos políticos e a perda dos bens só se efetivam com o 'trânsito em julgado' (quando não cabem mais recursos). A alternativa A está errada porque o herdeiro só responde até o limite do valor da herança."
+    },
+
+    // --- DIREITO PENAL ---
+    {
+        disciplina: "Direito",
+        assunto: "Direito Penal: Abandono de Função",
+        enunciado: "(Simulado PPRS) Lucas, servidor público federal que atua em faixa de fronteira, abandonou seu cargo público fora dos casos previstos em lei, resultando em prejuízo público. Nos termos do Código Penal, a conduta de Lucas configura:",
+        alternativas: [
+            "Crime contra a Administração Pública.",
+            "Infração contra a função administrativa.",
+            "Omissão.",
+            "Reincidência.",
+            "Contravenção penal."
+        ],
+        correta: 0,
+        explicacao: "Correto! O abandono de função (Art. 323 do CP) é classificado penalmente como um Crime (e não mera infração ou contravenção). O fato de ocorrer na faixa de fronteira e causar prejuízo atua como qualificadora (aumenta a pena da prisão)."
+    },
+    {
+        disciplina: "Direito",
+        assunto: "Direito Penal: Exercício Funcional Antecipado",
+        enunciado: "(Simulado PPRS) Álvaro, aprovado em concurso público e ansioso para trabalhar, inicia o exercício da função pública sem o prévio atendimento às exigências legais, sob permissão do seu diretor, Alberto. Quanto às condutas, é correto afirmar que:",
+        alternativas: [
+            "Por não ser ainda funcionário público, Álvaro não cometeu crime.",
+            "Álvaro cometeu violação de sigilo funcional.",
+            "Considerando a situação descrita, apenas Alberto cometeu crime.",
+            "A conduta de Álvaro configura exercício funcional ilegalmente antecipado.",
+            "Não há que se falar em punição penal para ambos."
+        ],
+        correta: 3,
+        explicacao: "Correto! O Art. 324 do Código Penal criminaliza exatamente essa conduta: 'Entrar no exercício de função pública antes de satisfeitas as exigências legais, ou continuar a exercê-la, sem autorização'. Álvaro responderá por esse crime."
+    }
         ];
 
         // Variáveis Globais de Estado
@@ -588,11 +1773,13 @@
             disciplinaAtual = disciplina;
             document.getElementById('titulo-disciplina-escolhida').textContent = disciplina;
             
+            // Pega os assuntos únicos dessa disciplina
             const assuntosUnicos = [...new Set(bancoDeQuestoes.filter(q => q.disciplina === disciplina).map(q => q.assunto))];
             
             const divLista = document.getElementById('lista-assuntos');
             divLista.innerHTML = '';
 
+            // Botão para misturar todos os assuntos da disciplina
             const btnTodos = document.createElement('button');
             btnTodos.className = 'menu-btn';
             btnTodos.style.backgroundColor = '#eff6ff';
@@ -600,6 +1787,7 @@
             btnTodos.onclick = () => iniciarQuiz('Todos');
             divLista.appendChild(btnTodos);
             
+            // Botões específicos de cada assunto
             assuntosUnicos.forEach(assunto => {
                 const btn = document.createElement('button');
                 btn.className = 'menu-btn';
